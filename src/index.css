@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: #0F1115;
+    color: #F0F0EC;
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background-color: #C2D100;
+    color: #0F1115;
+  }
+}
+
+@layer components {
+  .lime-gradient {
+    background: linear-gradient(135deg, #C2D100 0%, #D4E500 60%, #C2D100 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .btn-lime {
+    @apply bg-lime text-bg font-semibold rounded-xl px-6 py-3.5 text-sm
+           transition-all duration-200
+           hover:bg-lime-light hover:shadow-lime-glow
+           active:scale-[0.97];
+  }
+
+  .btn-outline-lime {
+    @apply border border-lime/40 text-lime font-medium rounded-xl px-6 py-3.5 text-sm
+           transition-all duration-200
+           hover:bg-lime/10;
+  }
+
+  .card {
+    @apply bg-surface border border-border rounded-2xl;
+  }
+
+  .section-label {
+    @apply inline-flex items-center gap-1.5 bg-lime/10 border border-lime/20
+           text-lime text-[11px] font-semibold tracking-[0.18em] uppercase
+           px-3 py-1.5 rounded-full;
+  }
+
+  .stat-badge {
+    @apply bg-surface-2 border border-border rounded-xl p-4 flex flex-col;
+  }
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #0F1115; }
+::-webkit-scrollbar-thumb { background: #C2D100; border-radius: 3px; }
