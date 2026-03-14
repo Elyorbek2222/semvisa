@@ -17,7 +17,7 @@ const TEAM = [
     initials: 'AR',
     name: 'Abdurakhim',
     role: "Viza bo'yicha menejer",
-    exp: '8 yil',
+    exp: '5 yil',
     bio: "Vizalar — mening fishkam! Har qanday murakkablikdagi vizani tez va ishonchli rasmiylashtirishga ixtisoslashgan. Sizning vaqtingiz — eng qimmatli resurs.",
     stats: [
       { value: '5 000+', label: 'Rasmiy viza' },

@@ -12,7 +12,7 @@ function NavBar({ onCTAClick, menuOpen, setMenuOpen }) {
   return (
     <nav className="sticky top-0 z-50 bg-bg/95 backdrop-blur-md border-b border-border">
       <div className="max-w-6xl mx-auto px-4 md:px-8 h-14 flex items-center justify-between">
-        <div className="flex items-center gap-2">
+        <a href="#" className="flex items-center gap-2">
           <div className="w-8 h-8 bg-lime/10 border border-lime/30 rounded-lg flex items-center justify-center">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path d="M8 1L14 4.5V11.5L8 15L2 11.5V4.5L8 1Z" stroke="#C2D100" strokeWidth="1.2" fill="none"/>
@@ -22,7 +22,7 @@ function NavBar({ onCTAClick, menuOpen, setMenuOpen }) {
           <span className="font-semibold text-[15px] tracking-tight">
             <span className="text-white">SEM </span><span className="text-lime">VISA</span>
           </span>
-        </div>
+        </a>
 
         <div className="hidden md:flex items-center gap-6">
           {[['#services','Xizmatlar'],['#team','Mutaxassislar'],['#testimonials','Sharhlar']].map(([href, label]) => (
