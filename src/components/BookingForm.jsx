@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const COUNTRIES = [
   "AQSH (B1/B2)",
@@ -29,6 +29,15 @@ export default function BookingForm({ formRef }) {
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState({})
+  const [utmInfo, setUtmInfo] = useState('')
+
+  useEffect(() => {
+    const p = new URLSearchParams(window.location.search)
+    const source = p.get('utm_source') || 'organik'
+    const medium = p.get('utm_medium') || '—'
+    const campaign = p.get('utm_campaign') || '—'
+    setUtmInfo(`📊 <b>Manba:</b> ${source} | ${medium} | ${campaign}`)
+  }, [])
 
   const validate = () => {
     const e = {}
@@ -67,7 +76,7 @@ export default function BookingForm({ formRef }) {
     const BOT_TOKEN = '7715605911:AAFVkGo_mRuRQ9hIn9z6kdu373SW2nxMtGA'
     const CHAT_ID = '-4064695160'
 
-    const text = `🆕 <b>Yangi ariza!</b>\n\n👤 <b>Ism:</b> ${form.name}\n📞 <b>Telefon:</b> ${form.phone}\n📧 <b>Email:</b> ${form.email}\n🌍 <b>Davlat:</b> ${form.country}${form.message ? `\n💬 <b>Xabar:</b> ${form.message}` : ''}`
+    const text = `🆕 <b>Yangi ariza!</b>\n\n👤 <b>Ism:</b> ${form.name}\n📞 <b>Telefon:</b> ${form.phone}\n📧 <b>Email:</b> ${form.email}\n🌍 <b>Davlat:</b> ${form.country}${form.message ? `\n💬 <b>Xabar:</b> ${form.message}` : ''}\n\n${utmInfo}`
 
     try {
       await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
