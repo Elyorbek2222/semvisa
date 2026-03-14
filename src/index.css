@@ -54,6 +54,10 @@
   }
 }
 
+/* Firefox */
+* { scrollbar-width: thin; scrollbar-color: #C2D100 #0F1115; }
+
+/* Chrome/Safari */
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: #0F1115; }
 ::-webkit-scrollbar-thumb { background: #C2D100; border-radius: 3px; }

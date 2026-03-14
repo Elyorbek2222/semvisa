@@ -1,11 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-
-const TRUST_STATS = [
-  { value: '15+', label: 'Yillik tajriba' },
-  { value: '12 000+', label: 'Tasdiqlangan viza' },
-  { value: '98%', label: 'Birinchi urinish' },
-  { value: '247', label: "Rad javobidan keyin qutqarilgan keys (2025)" },
-]
+import { HERO_STATS } from '../constants'
 
 const TOP_DESTINATIONS = [
   { flag: '🇺🇸', country: 'AQSH', name: 'Biznes vizasi (B1/B2)', badge: '98%' },
@@ -25,8 +19,8 @@ function NavBar({ onCTAClick, menuOpen, setMenuOpen }) {
               <path d="M8 4L11 5.75V9.25L8 11L5 9.25V5.75L8 4Z" fill="#C2D100" fillOpacity="0.3"/>
             </svg>
           </div>
-          <span className="font-semibold text-white text-[15px] tracking-tight">
-            Semtravel <span className="text-lime">Premium</span>
+          <span className="font-semibold text-[15px] tracking-tight">
+            <span className="text-white">SEM </span><span className="text-lime">VISA</span>
           </span>
         </div>
 
@@ -43,7 +37,9 @@ function NavBar({ onCTAClick, menuOpen, setMenuOpen }) {
 
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden w-8 h-8 flex flex-col justify-center gap-1.5 items-center"
+          aria-label={menuOpen ? "Menyuni yopish" : "Menyuni ochish"}
+          aria-expanded={menuOpen}
+          className="md:hidden w-11 h-11 flex flex-col justify-center gap-1.5 items-center"
         >
           <span className={`block w-5 h-px bg-white/60 transition-all duration-200 ${menuOpen ? 'rotate-45 translate-y-[7px]' : ''}`}/>
           <span className={`block w-5 h-px bg-white/60 transition-all duration-200 ${menuOpen ? 'opacity-0' : ''}`}/>
@@ -74,19 +70,24 @@ export default function Hero({ onCTAClick }) {
 
   useEffect(() => {
     const els = sectionRef.current?.querySelectorAll('[data-fade]')
+    const timers = []
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) {
         els?.forEach((el, i) => {
-          setTimeout(() => {
+          const t = setTimeout(() => {
             el.style.opacity = '1'
             el.style.transform = 'translateY(0)'
           }, i * 110)
+          timers.push(t)
         })
         observer.disconnect()
       }
     }, { threshold: 0.05 })
     if (sectionRef.current) observer.observe(sectionRef.current)
-    return () => observer.disconnect()
+    return () => {
+      observer.disconnect()
+      timers.forEach(clearTimeout)
+    }
   }, [])
 
   return (
@@ -148,7 +149,7 @@ export default function Hero({ onCTAClick }) {
             style={{opacity:0,transform:'translateY(14px)',transition:'all 0.5s ease'}}
             className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-3"
           >
-            {TRUST_STATS.map(({ value, label }) => (
+            {HERO_STATS.map(({ value, label }) => (
               <div key={label} className="stat-badge">
                 <span className="text-lime text-2xl md:text-3xl font-extrabold leading-none">{value}</span>
                 <span className="mt-1 text-[10px] text-white/35 uppercase tracking-wide leading-tight">{label}</span>

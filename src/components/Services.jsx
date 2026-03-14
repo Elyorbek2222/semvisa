@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useInView } from '../hooks/useInView'
 
 const SERVICES = [
   {
@@ -52,26 +52,7 @@ const SERVICES = [
 ]
 
 function ServiceCard({ s, index }) {
-  const ref = useRef(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            if (ref.current) {
-              ref.current.style.opacity = '1'
-              ref.current.style.transform = 'translateY(0)'
-            }
-          }, index * 120)
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.1 }
-    )
-    if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [index])
+  const ref = useInView({ delay: index * 120 })
 
   return (
     <article
@@ -131,24 +112,7 @@ function ServiceCard({ s, index }) {
 }
 
 export default function Services() {
-  const headRef = useRef(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          if (headRef.current) {
-            headRef.current.style.opacity = '1'
-            headRef.current.style.transform = 'translateY(0)'
-          }
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.1 }
-    )
-    if (headRef.current) observer.observe(headRef.current)
-    return () => observer.disconnect()
-  }, [])
+  const headRef = useInView()
 
   return (
     <section id="services" className="bg-bg py-16 md:py-24 px-4 md:px-8">

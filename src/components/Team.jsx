@@ -1,65 +1,46 @@
-import { useEffect, useRef } from 'react'
+import { useInView } from '../hooks/useInView'
 
 const TEAM = [
   {
-    initials: 'EY',
-    name: 'Elyorbek',
+    initials: 'SO',
+    name: 'Sardorbek Orifjonov',
     role: 'Asoschi va Viza Strategi',
     exp: '15 yil',
-    bio: "15 yillik tajribaga ega biznes-arxitektor. 10 000 dan ortiq murakkab viza keyslarini shaxsan tahlil qilgan va tizimlashtirgan.",
+    bio: "15 yillik tajriba. Har bir keysni yuridik jihatdan chuqur tahlil qilib, mijoz uchun eng ishonchli strategiya ishlab chiqadi.",
     stats: [
-      { value: '10 000+', label: 'Tahlil qilingan keys' },
+      { value: '12 000+', label: 'Hal qilingan keys' },
       { value: '98%', label: 'Muvaffaqiyat' },
     ],
-    skills: ['AQSH & Kanada', 'Biznes vizalar', 'Murakkab keyslar'],
+    skills: ['Yuridik maslahat', 'Murakkab vizalar', 'Biznes sayohatlari'],
   },
   {
-    initials: 'MA',
-    name: 'Madina',
-    role: 'Hujjatlar bo\'yicha bosh ekspert',
-    exp: '9 yil',
-    bio: "5 000 dan ortiq anketalarni birorta texnik xatosiz to'ldirgan. Elchixonalarning eng so'nggi talablarini ich-ichidan biladi.",
+    initials: 'AR',
+    name: 'Abdurakhim',
+    role: "Viza bo'yicha menejer",
+    exp: '8 yil',
+    bio: "Vizalar — mening fishkam! Har qanday murakkablikdagi vizani tez va ishonchli rasmiylashtirishga ixtisoslashgan. Sizning vaqtingiz — eng qimmatli resurs.",
     stats: [
-      { value: '5 000+', label: "To'ldirilgan anketa" },
-      { value: '99.3%', label: 'Aniqlik' },
+      { value: '5 000+', label: 'Rasmiy viza' },
+      { value: '97%', label: 'Tasdiqlash' },
     ],
-    skills: ['Shengen', 'Hujjat auditi', 'Moliyaviy profil'],
+    skills: ['Shengen vizalar', 'AQSH & Kanada', 'Tezkor rasmiylashtirish'],
   },
   {
-    initials: 'AZ',
-    name: 'Aziz',
-    role: 'Suhbat bo\'yicha Kouч',
-    exp: '7 yil',
-    bio: "Xalqaro muloqot eksperti. 1 000 dan ortiq mijozni AQSH va Shengen davlatlari konsullari bilan suhbatga tayyorlab, hayajonni natijaga aylantirgan.",
+    initials: 'EY',
+    name: 'Elyorbek',
+    role: 'Direktor',
+    exp: '6 yil',
+    bio: "Vizangizdan tashqari to'liq sayohat paketini tayyorlayman: ekskursiyalar, yopiq aviabiletlar va qo'shimcha xizmatlar. Sizning sayohatingiz — mening loyiham!",
     stats: [
-      { value: '1 000+', label: 'Tayyorlangan suhbat' },
-      { value: '100%', label: 'Ishonch' },
+      { value: '3 000+', label: "Tashkil qilingan tur" },
+      { value: '100%', label: 'Mijoz mamnuniyati' },
     ],
-    skills: ['Suhbat simulyatsiyasi', 'Muzokaralar psixologiyasi', 'Noverbal xulq'],
+    skills: ['Sayohat arxitekturasi', 'Ekskursiyalar', 'Yopiq aviabiletlar'],
   },
 ]
 
 function TeamCard({ member, index }) {
-  const ref = useRef(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            if (ref.current) {
-              ref.current.style.opacity = '1'
-              ref.current.style.transform = 'translateY(0)'
-            }
-          }, index * 130)
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.1 }
-    )
-    if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [index])
+  const ref = useInView({ delay: index * 130 })
 
   return (
     <div
@@ -134,24 +115,7 @@ function TeamCard({ member, index }) {
 }
 
 export default function Team() {
-  const headRef = useRef(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          if (headRef.current) {
-            headRef.current.style.opacity = '1'
-            headRef.current.style.transform = 'translateY(0)'
-          }
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.1 }
-    )
-    if (headRef.current) observer.observe(headRef.current)
-    return () => observer.disconnect()
-  }, [])
+  const headRef = useInView()
 
   return (
     <section id="team" className="bg-bg py-16 md:py-24 px-4 md:px-8">

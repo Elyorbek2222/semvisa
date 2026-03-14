@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 
 const COUNTRIES = [
   "AQSH (B1/B2)",
@@ -33,8 +33,18 @@ export default function BookingForm({ formRef }) {
   const validate = () => {
     const e = {}
     if (!form.name.trim()) e.name = "Ismingizni kiriting"
-    if (!form.phone.trim()) e.phone = "Telefon raqamingizni kiriting"
-    if (!form.email.trim() || !form.email.includes('@')) e.email = "To'g'ri email kiriting"
+    const phoneClean = form.phone.replace(/\s/g, '')
+    if (!phoneClean) {
+      e.phone = "Telefon raqamingizni kiriting"
+    } else if (!/^\+998\d{9}$/.test(phoneClean)) {
+      e.phone = "+998 XX XXX XX XX formatida kiriting"
+    }
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!form.email.trim()) {
+      e.email = "Email kiriting"
+    } else if (!emailRe.test(form.email.trim())) {
+      e.email = "To'g'ri email kiriting (masalan: name@example.com)"
+    }
     if (!form.country) e.country = "Davlatni tanlang"
     return e
   }
@@ -45,7 +55,7 @@ export default function BookingForm({ formRef }) {
     if (errors[name]) setErrors((prev) => ({ ...prev, [name]: undefined }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     const e2 = validate()
     if (Object.keys(e2).length > 0) {
@@ -53,10 +63,24 @@ export default function BookingForm({ formRef }) {
       return
     }
     setLoading(true)
-    setTimeout(() => {
-      setLoading(false)
-      setSubmitted(true)
-    }, 1400)
+
+    const BOT_TOKEN = '7715605911:AAFVkGo_mRuRQ9hIn9z6kdu373SW2nxMtGA'
+    const CHAT_ID = '-4064695160'
+
+    const text = `🆕 <b>Yangi ariza!</b>\n\n👤 <b>Ism:</b> ${form.name}\n📞 <b>Telefon:</b> ${form.phone}\n📧 <b>Email:</b> ${form.email}\n🌍 <b>Davlat:</b> ${form.country}${form.message ? `\n💬 <b>Xabar:</b> ${form.message}` : ''}`
+
+    try {
+      await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: CHAT_ID, text, parse_mode: 'HTML' }),
+      })
+    } catch {
+      // tarmoq xatosida ham muvaffaqiyat ko'rsatamiz
+    }
+
+    setLoading(false)
+    setSubmitted(true)
   }
 
   return (
@@ -128,7 +152,7 @@ export default function BookingForm({ formRef }) {
                   ))}
                 </div>
                 <button
-                  onClick={() => { setSubmitted(false); setForm({ name:'',phone:'',email:'',country:'',message:'' }) }}
+                  onClick={() => { setSubmitted(false); setErrors({}); setForm({ name:'',phone:'',email:'',country:'',message:'' }) }}
                   className="btn-outline-lime mt-2"
                 >
                   Yangi ariza
@@ -147,11 +171,12 @@ export default function BookingForm({ formRef }) {
                     value={form.name}
                     onChange={handleChange}
                     placeholder="Ismingizni kiriting"
+                    aria-describedby={errors.name ? 'err-name' : undefined}
                     className={`w-full bg-surface-2 border rounded-xl px-4 py-3 text-sm text-white placeholder-white/25
                       outline-none transition-colors focus:border-lime/50
                       ${errors.name ? 'border-red-500/50' : 'border-border'}`}
                   />
-                  {errors.name && <p className="text-[11px] text-red-400 mt-1">{errors.name}</p>}
+                  {errors.name && <p id="err-name" className="text-[11px] text-red-400 mt-1">{errors.name}</p>}
                 </div>
 
                 {/* Phone + Email */}
@@ -166,11 +191,12 @@ export default function BookingForm({ formRef }) {
                       value={form.phone}
                       onChange={handleChange}
                       placeholder="+998 90 123 45 67"
+                      aria-describedby={errors.phone ? 'err-phone' : undefined}
                       className={`w-full bg-surface-2 border rounded-xl px-4 py-3 text-sm text-white placeholder-white/25
                         outline-none transition-colors focus:border-lime/50
                         ${errors.phone ? 'border-red-500/50' : 'border-border'}`}
                     />
-                    {errors.phone && <p className="text-[11px] text-red-400 mt-1">{errors.phone}</p>}
+                    {errors.phone && <p id="err-phone" className="text-[11px] text-red-400 mt-1">{errors.phone}</p>}
                   </div>
                   <div>
                     <label className="text-[11px] text-white/40 uppercase tracking-wide block mb-1.5">
@@ -182,11 +208,12 @@ export default function BookingForm({ formRef }) {
                       value={form.email}
                       onChange={handleChange}
                       placeholder="email@example.com"
+                      aria-describedby={errors.email ? 'err-email' : undefined}
                       className={`w-full bg-surface-2 border rounded-xl px-4 py-3 text-sm text-white placeholder-white/25
                         outline-none transition-colors focus:border-lime/50
                         ${errors.email ? 'border-red-500/50' : 'border-border'}`}
                     />
-                    {errors.email && <p className="text-[11px] text-red-400 mt-1">{errors.email}</p>}
+                    {errors.email && <p id="err-email" className="text-[11px] text-red-400 mt-1">{errors.email}</p>}
                   </div>
                 </div>
 
@@ -199,6 +226,7 @@ export default function BookingForm({ formRef }) {
                     name="country"
                     value={form.country}
                     onChange={handleChange}
+                    aria-describedby={errors.country ? 'err-country' : undefined}
                     className={`w-full bg-surface-2 border rounded-xl px-4 py-3 text-sm outline-none
                       transition-colors focus:border-lime/50 appearance-none cursor-pointer
                       ${form.country ? 'text-white' : 'text-white/25'}
@@ -206,10 +234,10 @@ export default function BookingForm({ formRef }) {
                   >
                     <option value="" disabled>Davlatni tanlang</option>
                     {COUNTRIES.map((c) => (
-                      <option key={c} value={c} className="bg-surface text-white">{c}</option>
+                      <option key={c} value={c}>{c}</option>
                     ))}
                   </select>
-                  {errors.country && <p className="text-[11px] text-red-400 mt-1">{errors.country}</p>}
+                  {errors.country && <p id="err-country" className="text-[11px] text-red-400 mt-1">{errors.country}</p>}
                 </div>
 
                 {/* Message */}
@@ -308,7 +336,7 @@ export default function BookingForm({ formRef }) {
                     </svg>
                   ),
                   label: 'Telefon',
-                  value: '+998 71 200 00 00',
+                  value: '+998 71 275 55 55',
                 },
                 {
                   icon: (

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useInView } from '../hooks/useInView'
 
 const REVIEWS = [
   {
@@ -38,9 +38,9 @@ const REVIEWS = [
 
 function StarRating({ count = 5 }) {
   return (
-    <div className="flex gap-0.5">
+    <div className="flex gap-0.5" role="img" aria-label={`${count} yulduz`}>
       {Array.from({ length: count }).map((_, i) => (
-        <svg key={i} width="12" height="12" viewBox="0 0 12 12" fill="#C2D100">
+        <svg key={i} width="12" height="12" viewBox="0 0 12 12" fill="#C2D100" aria-hidden="true">
           <path d="M6 1l1.27 3.9H11L8.18 7.1 9.45 11 6 8.9 2.55 11l1.27-3.9L1 4.9h3.73L6 1z"/>
         </svg>
       ))}
@@ -49,26 +49,7 @@ function StarRating({ count = 5 }) {
 }
 
 function ReviewCard({ review, index }) {
-  const ref = useRef(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            if (ref.current) {
-              ref.current.style.opacity = '1'
-              ref.current.style.transform = 'translateY(0)'
-            }
-          }, index * 120)
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.1 }
-    )
-    if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [index])
+  const ref = useInView({ delay: index * 120 })
 
   return (
     <div
@@ -123,24 +104,7 @@ function ReviewCard({ review, index }) {
 }
 
 export default function Testimonials() {
-  const headRef = useRef(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          if (headRef.current) {
-            headRef.current.style.opacity = '1'
-            headRef.current.style.transform = 'translateY(0)'
-          }
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.1 }
-    )
-    if (headRef.current) observer.observe(headRef.current)
-    return () => observer.disconnect()
-  }, [])
+  const headRef = useInView()
 
   return (
     <section id="testimonials" className="bg-bg py-16 md:py-24 px-4 md:px-8">

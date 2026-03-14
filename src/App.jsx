@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import { TRUST_STRIP_STATS } from './constants'
 import Hero from './components/Hero'
 import Services from './components/Services'
 import Team from './components/Team'
@@ -26,12 +27,7 @@ export default function App() {
       <div className="bg-surface border-y border-border py-4 px-4 md:px-8 overflow-hidden">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex flex-wrap items-center gap-6">
-            {[
-              { value: '15 yil', label: '2011-yildan beri' },
-              { value: '20+', label: "Davlatlar bilan ishlaymiz" },
-              { value: '12 000+', label: 'Tasdiqlangan viza' },
-              { value: '247', label: "Rad javobidan keyin qutqarilgan (2025)" },
-            ].map(({ value, label }) => (
+            {TRUST_STRIP_STATS.map(({ value, label }) => (
               <div key={label} className="flex items-center gap-2">
                 <span className="text-lime font-bold text-sm">{value}</span>
                 <span className="text-white/30 text-xs hidden sm:inline">·</span>
@@ -84,7 +80,7 @@ export default function App() {
               </svg>
             </div>
             <div>
-              <span className="font-semibold text-white text-sm">Semtravel <span className="text-lime">Premium</span></span>
+              <span className="font-semibold text-sm"><span className="text-white">SEM </span><span className="text-lime">VISA</span></span>
               <p className="text-[10px] text-white/25">Viza konsaltingi — 2011-yildan beri</p>
             </div>
           </div>
