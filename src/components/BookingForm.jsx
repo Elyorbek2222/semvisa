@@ -328,47 +328,70 @@ export default function BookingForm({ formRef }) {
             {/* Contact info */}
             <div className="card p-5 flex flex-col gap-3">
               <p className="text-[11px] text-white/30 uppercase tracking-widest">Bog'lanish</p>
-              {[
-                {
-                  icon: (
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5">
-                      <path d="M2 2h4l1.5 3.5L5.5 7a9 9 0 0 0 1.5 1.5l1.5-2L12 7.5V12c-5.5 0-10-4.5-10-10z"/>
-                    </svg>
-                  ),
-                  label: 'Telefon',
-                  value: '+998 71 275 55 55',
-                },
-                {
-                  icon: (
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5">
-                      <rect x="1" y="3" width="12" height="8" rx="1"/>
-                      <path d="M1 3l6 5 6-5"/>
-                    </svg>
-                  ),
-                  label: 'Email',
-                  value: 'info@semtravel.uz',
-                },
-                {
-                  icon: (
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5">
-                      <path d="M7 1C4.8 1 3 2.8 3 5c0 3.5 4 8 4 8s4-4.5 4-8c0-2.2-1.8-4-4-4z"/>
-                      <circle cx="7" cy="5" r="1.5"/>
-                    </svg>
-                  ),
-                  label: 'Manzil',
-                  value: 'Toshkent, Chilonzor tumani',
-                },
-              ].map(({ icon, label, value }) => (
-                <div key={label} className="flex items-start gap-3">
-                  <div className="w-7 h-7 rounded-lg bg-lime/10 border border-lime/20 flex items-center justify-center shrink-0 text-lime">
-                    {icon}
-                  </div>
-                  <div>
-                    <p className="text-[10px] text-white/30 uppercase tracking-wide">{label}</p>
-                    <p className="text-xs text-white/70 mt-0.5">{value}</p>
-                  </div>
+
+              {/* Telefon */}
+              <div className="flex items-start gap-3">
+                <div className="w-7 h-7 rounded-lg bg-lime/10 border border-lime/20 flex items-center justify-center shrink-0 text-lime">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <path d="M2 2h4l1.5 3.5L5.5 7a9 9 0 0 0 1.5 1.5l1.5-2L12 7.5V12c-5.5 0-10-4.5-10-10z"/>
+                  </svg>
                 </div>
-              ))}
+                <div>
+                  <p className="text-[10px] text-white/30 uppercase tracking-wide">Telefon</p>
+                  <a href="tel:+998712755555" className="block text-xs text-white/70 mt-0.5 hover:text-lime transition-colors">+998 71 275 55 55</a>
+                  <a href="tel:+998983667773" className="block text-xs text-white/70 mt-0.5 hover:text-lime transition-colors">+998 98 366 77 73</a>
+                </div>
+              </div>
+
+              {/* Email */}
+              <div className="flex items-start gap-3">
+                <div className="w-7 h-7 rounded-lg bg-lime/10 border border-lime/20 flex items-center justify-center shrink-0 text-lime">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <rect x="1" y="3" width="12" height="8" rx="1"/>
+                    <path d="M1 3l6 5 6-5"/>
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-[10px] text-white/30 uppercase tracking-wide">Email</p>
+                  <a href="mailto:semtraveluz@mail.ru" className="text-xs text-white/70 mt-0.5 hover:text-lime transition-colors">semtraveluz@mail.ru</a>
+                </div>
+              </div>
+
+              {/* Manzil */}
+              <div className="flex items-start gap-3">
+                <div className="w-7 h-7 rounded-lg bg-lime/10 border border-lime/20 flex items-center justify-center shrink-0 text-lime">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <path d="M7 1C4.8 1 3 2.8 3 5c0 3.5 4 8 4 8s4-4.5 4-8c0-2.2-1.8-4-4-4z"/>
+                    <circle cx="7" cy="5" r="1.5"/>
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-[10px] text-white/30 uppercase tracking-wide">Manzil</p>
+                  <a
+                    href="https://yandex.uz/maps/-/CPBlrKl7"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1 text-xs text-white/70 mt-0.5 hover:text-lime transition-colors group"
+                  >
+                    <span>Katta Xitmontepa ko'chasi 12a/1</span>
+                    <svg className="shrink-0 opacity-40 group-hover:opacity-100" width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5">
+                      <path d="M2 8L8 2M4 2h4v4"/>
+                    </svg>
+                  </a>
+                  <a
+                    href="https://yandex.uz/maps/-/CPBlrLYu"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1 text-xs text-white/70 mt-1 hover:text-lime transition-colors group"
+                  >
+                    <span>Kichik halqa yo'li, Park City TJM</span>
+                    <svg className="shrink-0 opacity-40 group-hover:opacity-100" width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5">
+                      <path d="M2 8L8 2M4 2h4v4"/>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
             </div>
 
           </div>
