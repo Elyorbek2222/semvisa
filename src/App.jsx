@@ -4,6 +4,7 @@ import Hero from './components/Hero'
 import Services from './components/Services'
 import Team from './components/Team'
 import Testimonials from './components/Testimonials'
+import FAQ from './components/FAQ'
 import BookingForm from './components/BookingForm'
 
 export default function App() {
@@ -68,7 +69,15 @@ export default function App() {
         <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent" />
       </div>
 
-      {/* 5. Booking */}
+      {/* 5. FAQ */}
+      <FAQ onCTAClick={scrollToBooking} />
+
+      {/* Divider */}
+      <div className="max-w-6xl mx-auto px-4 md:px-8">
+        <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+      </div>
+
+      {/* 6. Booking */}
       <BookingForm formRef={bookingRef} selectedCountry={selectedCountry} />
 
       {/* Footer */}
@@ -88,7 +97,7 @@ export default function App() {
           </div>
 
           <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-white/35">
-            {[['#services','Xizmatlar'],['#team','Mutaxassislar'],['#testimonials','Sharhlar'],['#booking','Aloqa']].map(([href,label]) => (
+            {[['#services','Xizmatlar'],['#team','Mutaxassislar'],['#testimonials','Sharhlar'],['#faq','FAQ'],['#booking','Aloqa']].map(([href,label]) => (
               <a key={href} href={href} className="hover:text-lime transition-colors">{label}</a>
             ))}
           </div>
