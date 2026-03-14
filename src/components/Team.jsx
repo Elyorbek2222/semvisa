@@ -29,7 +29,7 @@ const TEAM = [
     initials: 'EY',
     name: 'Elyorbek',
     role: 'Direktor',
-    exp: '6 yil',
+    exp: '15 yil',
     bio: "Vizangizdan tashqari to'liq sayohat paketini tayyorlayman: ekskursiyalar, yopiq aviabiletlar va qo'shimcha xizmatlar. Sizning sayohatingiz — mening loyiham!",
     stats: [
       { value: '3 000+', label: "Tashkil qilingan tur" },
