@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { TRUST_STRIP_STATS } from './constants'
 import Hero from './components/Hero'
 import Services from './components/Services'
@@ -8,15 +8,17 @@ import BookingForm from './components/BookingForm'
 
 export default function App() {
   const bookingRef = useRef(null)
+  const [selectedCountry, setSelectedCountry] = useState('')
 
-  const scrollToBooking = () => {
+  const scrollToBooking = (country = '') => {
+    if (country) setSelectedCountry(country)
     bookingRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
   return (
     <div className="min-h-screen bg-bg">
       {/* 1. Hero */}
-      <Hero onCTAClick={scrollToBooking} />
+      <Hero onCTAClick={scrollToBooking} onDestinationClick={scrollToBooking} />
 
       {/* Divider */}
       <div className="max-w-6xl mx-auto px-4 md:px-8">
@@ -67,7 +69,7 @@ export default function App() {
       </div>
 
       {/* 5. Booking */}
-      <BookingForm formRef={bookingRef} />
+      <BookingForm formRef={bookingRef} selectedCountry={selectedCountry} />
 
       {/* Footer */}
       <footer className="border-t border-border bg-surface">

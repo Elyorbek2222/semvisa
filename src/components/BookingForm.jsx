@@ -18,7 +18,7 @@ const STEPS = [
   { id: 3, label: "Viza natijasi", done: false },
 ]
 
-export default function BookingForm({ formRef }) {
+export default function BookingForm({ formRef, selectedCountry }) {
   const [form, setForm] = useState({
     name: '',
     phone: '',
@@ -30,6 +30,12 @@ export default function BookingForm({ formRef }) {
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState({})
   const [utmInfo, setUtmInfo] = useState('')
+
+  useEffect(() => {
+    if (selectedCountry) {
+      setForm(prev => ({ ...prev, country: selectedCountry }))
+    }
+  }, [selectedCountry])
 
   useEffect(() => {
     const p = new URLSearchParams(window.location.search)

@@ -2,10 +2,10 @@ import { useEffect, useRef, useState } from 'react'
 import { HERO_STATS } from '../constants'
 
 const TOP_DESTINATIONS = [
-  { flag: '🇺🇸', country: 'AQSH', name: 'Biznes vizasi (B1/B2)', badge: '98%' },
-  { flag: '🇬🇧', country: 'Buyuk Britaniya', name: 'Ishchi viza', badge: '97%' },
-  { flag: '🇩🇪', country: 'Germaniya', name: 'Shengen Biznes', badge: '99%' },
-  { flag: '🇨🇦', country: 'Kanada', name: "Viza kalit ostida", badge: '96%' },
+  { flag: '🇺🇸', country: 'AQSH', name: 'Biznes vizasi (B1/B2)', badge: '98%', selectValue: 'AQSH (B1/B2)' },
+  { flag: '🇬🇧', country: 'Buyuk Britaniya', name: 'Ishchi viza', badge: '97%', selectValue: 'Buyuk Britaniya' },
+  { flag: '🇩🇪', country: 'Germaniya', name: 'Shengen Biznes', badge: '99%', selectValue: 'Shengen (Germaniya)' },
+  { flag: '🇨🇦', country: 'Kanada', name: 'Viza kalit ostida', badge: '96%', selectValue: 'Kanada' },
 ]
 
 function NavBar({ onCTAClick, menuOpen, setMenuOpen }) {
@@ -64,7 +64,7 @@ function NavBar({ onCTAClick, menuOpen, setMenuOpen }) {
   )
 }
 
-export default function Hero({ onCTAClick }) {
+export default function Hero({ onCTAClick, onDestinationClick }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const sectionRef = useRef(null)
 
@@ -165,9 +165,10 @@ export default function Hero({ onCTAClick }) {
           >
             <p className="text-[10px] text-white/30 uppercase tracking-widest mb-3">Mashhur yo'nalishlar</p>
             <div className="flex flex-col gap-2">
-              {TOP_DESTINATIONS.map(({ flag, country, name, badge }) => (
+              {TOP_DESTINATIONS.map(({ flag, country, name, badge, selectValue }) => (
                 <div
                   key={country}
+                  onClick={() => onDestinationClick(selectValue)}
                   className="card px-4 py-3 flex items-center justify-between gap-4 hover:border-lime/30 transition-colors cursor-pointer group"
                 >
                   <div className="flex items-center gap-3">
