@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Background -->
+  <rect width="512" height="512" rx="80" fill="#0F1115"/>
+  <!-- Hexagon outer -->
+  <path d="M256 64 L408 150 L408 326 L256 412 L104 326 L104 150 Z" stroke="#C2D100" stroke-width="12" fill="none"/>
+  <!-- Hexagon inner -->
+  <path d="M256 128 L358 183 L358 294 L256 349 L154 294 L154 183 Z" fill="#C2D100" fill-opacity="0.15"/>
+  <!-- SEM text -->
+  <text x="256" y="230" font-family="Arial, sans-serif" font-weight="900" font-size="72" fill="#FFFFFF" text-anchor="middle" letter-spacing="-2">SEM</text>
+  <!-- VISA text -->
+  <text x="256" y="315" font-family="Arial, sans-serif" font-weight="900" font-size="72" fill="#C2D100" text-anchor="middle" letter-spacing="-2">VISA</text>
+</svg>

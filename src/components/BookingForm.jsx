@@ -38,11 +38,20 @@ export default function BookingForm({ formRef, selectedCountry }) {
   }, [selectedCountry])
 
   useEffect(() => {
-    const p = new URLSearchParams(window.location.search)
-    const source = p.get('utm_source') || 'organik'
-    const medium = p.get('utm_medium') || '—'
-    const campaign = p.get('utm_campaign') || '—'
-    setUtmInfo(`📊 <b>Manba:</b> ${source} | ${medium} | ${campaign}`)
+    const tg = window.Telegram?.WebApp
+    if (tg?.initData) {
+      tg.ready()
+      tg.expand()
+      const user = tg.initDataUnsafe?.user
+      const userInfo = user ? ` (${user.first_name}${user.username ? ' @' + user.username : ''})` : ''
+      setUtmInfo(`📱 <b>Manba:</b> Telegram Mini App${userInfo}`)
+    } else {
+      const p = new URLSearchParams(window.location.search)
+      const source = p.get('utm_source') || 'organik'
+      const medium = p.get('utm_medium') || '—'
+      const campaign = p.get('utm_campaign') || '—'
+      setUtmInfo(`📊 <b>Manba:</b> ${source} | ${medium} | ${campaign}`)
+    }
   }, [])
 
   const validate = () => {
@@ -79,8 +88,8 @@ export default function BookingForm({ formRef, selectedCountry }) {
     }
     setLoading(true)
 
-    const BOT_TOKEN = '7715605911:AAFVkGo_mRuRQ9hIn9z6kdu373SW2nxMtGA'
-    const CHAT_ID = '-4064695160'
+    const BOT_TOKEN = '8499484678:AAE8e3kgtaao5uBl-tNAXFDWYU_6-avByPI'
+    const CHAT_ID = '1669324'
 
     const text = `🆕 <b>Yangi ariza!</b>\n\n👤 <b>Ism:</b> ${form.name}\n📞 <b>Telefon:</b> ${form.phone}\n📧 <b>Email:</b> ${form.email}\n🌍 <b>Davlat:</b> ${form.country}${form.message ? `\n💬 <b>Xabar:</b> ${form.message}` : ''}\n\n${utmInfo}`
 
@@ -96,6 +105,7 @@ export default function BookingForm({ formRef, selectedCountry }) {
 
     setLoading(false)
     setSubmitted(true)
+    window.Telegram?.WebApp?.HapticFeedback?.notificationOccurred('success')
   }
 
   return (
