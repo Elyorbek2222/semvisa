@@ -98,17 +98,15 @@ export default function Hero({ onCTAClick, onDestinationClick }) {
         <div className="max-w-6xl mx-auto">
 
           {/* Badge */}
-          <div data-fade style={{opacity:0,transform:'translateY(14px)',transition:'all 0.5s ease'}}>
+          <div>
             <span className="section-label">
               <span className="w-1.5 h-1.5 bg-lime rounded-full animate-pulse"/>
               VIZA KONSALTINGI №1 BIZNES UCHUN
             </span>
           </div>
 
-          {/* H1 */}
+          {/* H1 — LCP: opacity:0 yo'q, darhol ko'rinadi */}
           <h1
-            data-fade
-            style={{opacity:0,transform:'translateY(14px)',transition:'all 0.5s ease'}}
             className="mt-4 font-sans text-[28px] md:text-5xl lg:text-6xl font-extrabold leading-[1.12] text-white max-w-3xl"
           >
             Viza rad etilishi xavfidan qutuling:{' '}
