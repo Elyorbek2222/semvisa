@@ -1,5 +1,6 @@
 import { useParams, Link, Navigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import { Helmet } from 'react-helmet-async'
 import { blogPosts } from '../data/blogPosts'
 
 const CATEGORY_COLORS = {
@@ -164,6 +165,31 @@ export default function BlogPost() {
 
   return (
     <div className="min-h-screen bg-bg">
+      <Helmet>
+        <title>{post.metaTitle || post.title} | SEM VISA</title>
+        <meta name="description" content={post.metaDesc || post.excerpt} />
+        {post.keywords && <meta name="keywords" content={post.keywords} />}
+        <link rel="canonical" href={`https://semvisa.vercel.app/blog/${post.slug}`} />
+        <meta property="og:title" content={post.metaTitle || post.title} />
+        <meta property="og:description" content={post.metaDesc || post.excerpt} />
+        <meta property="og:url" content={`https://semvisa.vercel.app/blog/${post.slug}`} />
+        <meta property="og:type" content="article" />
+        <meta property="article:published_time" content={post.date} />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": post.title,
+          "description": post.metaDesc || post.excerpt,
+          "datePublished": post.date,
+          "author": { "@type": "Organization", "name": "SEM VISA Consulting" },
+          "publisher": {
+            "@type": "Organization",
+            "name": "SEM VISA Consulting",
+            "url": "https://semvisa.vercel.app"
+          },
+          "mainEntityOfPage": `https://semvisa.vercel.app/blog/${post.slug}`
+        })}</script>
+      </Helmet>
       <ReadingProgress />
 
       {/* NavBar */}

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 import { blogPosts } from '../data/blogPosts'
 
 const CATEGORY_COLORS = {
@@ -55,6 +56,16 @@ export default function Blog() {
 
   return (
     <div className="min-h-screen bg-bg">
+      <Helmet>
+        <title>Blog — Viza bo'yicha maslahatlar | SEM VISA Consulting</title>
+        <meta name="description" content="SEM VISA blogida AQSH, Shengen, Buyuk Britaniya, Kanada, Dubai vizalari haqida amaliy maslahatlar, lifehacklar va mutaxassis tavsiyalari." />
+        <meta name="keywords" content="viza blog, AQSH vizasi, Shengen vizasi, Kanada vizasi, Dubai vizasi, viza maslahat Toshkent" />
+        <link rel="canonical" href="https://semvisa.vercel.app/blog" />
+        <meta property="og:title" content="Blog — Viza bo'yicha maslahatlar | SEM VISA" />
+        <meta property="og:description" content="AQSH, Shengen, UK, Kanada, Dubai vizalari haqida professional maslahatlar." />
+        <meta property="og:url" content="https://semvisa.vercel.app/blog" />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <NavBar />
 
       {/* Page header */}
