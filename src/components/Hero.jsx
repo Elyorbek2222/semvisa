@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { HERO_STATS } from '../constants'
 
 const TOP_DESTINATIONS = [
@@ -30,6 +31,9 @@ function NavBar({ onCTAClick, menuOpen, setMenuOpen, onLangSwitch }) {
               {label}
             </a>
           ))}
+          <Link to="/blog" className="text-sm text-white/50 hover:text-white transition-colors">
+            Blog
+          </Link>
           {/* Language switcher */}
           <button
             onClick={onLangSwitch}
@@ -66,10 +70,14 @@ function NavBar({ onCTAClick, menuOpen, setMenuOpen, onLangSwitch }) {
         <div className="md:hidden bg-surface border-t border-border px-4 py-4 flex flex-col gap-1">
           {[['#services','Xizmatlar'],['#team','Mutaxassislar'],['#testimonials','Sharhlar']].map(([href, label]) => (
             <a key={href} href={href} onClick={() => setMenuOpen(false)}
-               className="text-sm text-white/60 py-3 border-b border-border last:border-0 hover:text-gold transition-colors">
+               className="text-sm text-white/60 py-3 border-b border-border hover:text-gold transition-colors">
               {label}
             </a>
           ))}
+          <Link to="/blog" onClick={() => setMenuOpen(false)}
+            className="text-sm text-white/60 py-3 border-b border-border hover:text-gold transition-colors">
+            Blog
+          </Link>
           <button onClick={() => { setMenuOpen(false); onCTAClick() }} className="btn-gold mt-3 text-center">
             Bepul viza tahlilini olish →
           </button>

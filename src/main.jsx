@@ -1,8 +1,11 @@
 import { StrictMode, useState } from 'react'
 import { createRoot } from 'react-dom/client'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './index.css'
 import App from './App.jsx'
 import AppRu from './AppRu.jsx'
+import Blog from './pages/Blog.jsx'
+import BlogPost from './pages/BlogPost.jsx'
 
 function Root() {
   const [lang, setLang] = useState(() => localStorage.getItem('semvisa_lang') || 'uz')
@@ -19,10 +22,19 @@ function Root() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  if (lang === 'ru') {
-    return <AppRu onLangSwitch={switchToUz} />
-  }
-  return <App onLangSwitch={switchToRu} />
+  const HomePage = lang === 'ru'
+    ? <AppRu onLangSwitch={switchToUz} />
+    : <App onLangSwitch={switchToRu} />
+
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={HomePage} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:slug" element={<BlogPost />} />
+      </Routes>
+    </BrowserRouter>
+  )
 }
 
 createRoot(document.getElementById('root')).render(
