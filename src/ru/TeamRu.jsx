@@ -3,39 +3,39 @@ import { useInView } from '../hooks/useInView'
 const TEAM = [
   {
     initials: 'SO',
-    name: 'Sardorbek Orifjonov',
-    role: 'Asoschi va Viza Strategi',
-    exp: '15 yil',
-    bio: "15 yillik tajriba. Har bir keysni yuridik jihatdan chuqur tahlil qilib, mijoz uchun eng ishonchli strategiya ishlab chiqadi.",
+    name: 'Сардорбек Орифжонов',
+    role: 'Основатель и Визовый Стратег',
+    exp: '15 лет',
+    bio: "15 лет опыта. Каждое дело анализирует глубоко с юридической точки зрения и разрабатывает наиболее надёжную стратегию для клиента.",
     stats: [
-      { value: '12 000+', label: 'Hal qilingan keys' },
-      { value: '98%', label: 'Muvaffaqiyat' },
+      { value: '12 000+', label: 'Решённых дел' },
+      { value: '98%', label: 'Успешность' },
     ],
-    skills: ['Yuridik maslahat', 'Murakkab vizalar', 'Biznes sayohatlari'],
+    skills: ['Юридические консультации', 'Сложные визы', 'Деловые поездки'],
   },
   {
     initials: 'AR',
-    name: 'Abdurakhim',
-    role: "Viza bo'yicha menejer",
-    exp: '5 yil',
-    bio: "Vizalar — mening fishkam! Har qanday murakkablikdagi vizani tez va ishonchli rasmiylashtirishga ixtisoslashgan. Sizning vaqtingiz — eng qimmatli resurs.",
+    name: 'Абдурахим',
+    role: "Визовый менеджер",
+    exp: '5 лет',
+    bio: "Визы — моя специализация! Профессионально занимаюсь оформлением виз любой сложности быстро и надёжно. Ваше время — самый ценный ресурс.",
     stats: [
-      { value: '5 000+', label: 'Rasmiy viza' },
-      { value: '97%', label: 'Tasdiqlash' },
+      { value: '5 000+', label: 'Оформленных виз' },
+      { value: '97%', label: 'Одобрение' },
     ],
-    skills: ['Shengen vizalar', 'AQSH & Kanada', 'Tezkor rasmiylashtirish'],
+    skills: ['Шенгенские визы', 'США и Канада', 'Срочное оформление'],
   },
   {
     initials: 'EY',
-    name: 'Elyorbek',
-    role: 'Direktor',
-    exp: '15 yil',
-    bio: "Vizangizdan tashqari to'liq sayohat paketini tayyorlayman: ekskursiyalar, yopiq aviabiletlar va qo'shimcha xizmatlar. Sizning sayohatingiz — mening loyiham!",
+    name: 'Элёрбек',
+    role: 'Директор',
+    exp: '15 лет',
+    bio: "Помимо визы подготовлю полный туристический пакет: экскурсии, подтверждённые авиабилеты и дополнительные услуги. Ваше путешествие — мой проект!",
     stats: [
-      { value: '3 000+', label: "Tashkil qilingan tur" },
-      { value: '100%', label: 'Mijoz mamnuniyati' },
+      { value: '3 000+', label: "Организованных туров" },
+      { value: '100%', label: 'Удовлетворённость' },
     ],
-    skills: ['Sayohat arxitekturasi', 'Ekskursiyalar', 'Yopiq aviabiletlar'],
+    skills: ['Туристическая архитектура', 'Экскурсии', 'Подтверждённые билеты'],
   },
 ]
 
@@ -48,7 +48,6 @@ function TeamCard({ member, index }) {
       style={{ opacity: 0, transform: 'translateY(20px)', transition: 'all 0.6s ease' }}
       className="card overflow-hidden hover:border-gold/30 hover:shadow-[0_4px_20px_rgba(212,175,55,0.08)] transition-all duration-300 group"
     >
-      {/* Profile header */}
       <div className="p-5 flex items-center gap-4 border-b border-border bg-gradient-to-br from-surface to-surface-2 group-hover:from-surface-2 group-hover:to-surface transition-colors">
         <div className="relative shrink-0">
           <div className="w-14 h-14 rounded-2xl bg-gold/10 border border-gold/30 flex items-center justify-center shadow-[0_0_15px_rgba(212,175,55,0.1)] group-hover:scale-105 transition-transform duration-300">
@@ -59,20 +58,18 @@ function TeamCard({ member, index }) {
         <div className="flex-1 min-w-0">
           <p className="font-bold text-white text-sm truncate">{member.name}</p>
           <p className="text-[11px] text-gold/80 mt-0.5 font-medium">{member.role}</p>
-          <p className="text-[10px] text-white/35 mt-0.5">{member.exp} tajriba</p>
+          <p className="text-[10px] text-white/35 mt-0.5">Опыт: {member.exp}</p>
         </div>
         <div className="shrink-0 bg-gold/10 border border-gold/20 rounded-lg px-2.5 py-1.5 text-center">
           <p className="text-gold font-extrabold text-sm leading-none">{member.exp}</p>
-          <p className="text-[9px] text-white/40 mt-0.5 uppercase tracking-wide">tajriba</p>
+          <p className="text-[9px] text-white/40 mt-0.5 uppercase tracking-wide">опыт</p>
         </div>
       </div>
 
-      {/* Bio */}
       <div className="px-5 py-4 border-b border-border bg-surface-2/30">
         <p className="text-xs text-white/55 leading-relaxed min-h-[60px]">{member.bio}</p>
       </div>
 
-      {/* Stats */}
       <div className="grid grid-cols-2 gap-px bg-border border-b border-border">
         {member.stats.map(({ value, label }) => (
           <div key={label} className="bg-surface px-4 py-3 hover:bg-surface-2 transition-colors">
@@ -82,18 +79,13 @@ function TeamCard({ member, index }) {
         ))}
       </div>
 
-      {/* Skills — document status style */}
       <div className="p-5">
-        <p className="text-[10px] text-white/30 uppercase tracking-widest mb-3">Ixtisoslik</p>
+        <p className="text-[10px] text-white/30 uppercase tracking-widest mb-3">Специализация</p>
         <div className="space-y-2.5">
           {member.skills.map((skill, i) => (
             <div key={skill} className="flex items-center gap-3">
               <div className={`w-5 h-5 rounded-full border flex items-center justify-center shrink-0 transition-colors duration-300 ${
-                i === 0
-                  ? 'bg-gold border-gold'
-                  : i === 1
-                  ? 'border-gold/50 bg-gold/10'
-                  : 'border-white/15 bg-transparent'
+                i === 0 ? 'bg-gold border-gold' : i === 1 ? 'border-gold/50 bg-gold/10' : 'border-white/15 bg-transparent'
               }`}>
                 {i === 0 && (
                   <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#0F0E0D" strokeWidth="2">
@@ -114,11 +106,11 @@ function TeamCard({ member, index }) {
   )
 }
 
-export default function Team() {
+export default function TeamRu() {
   const headRef = useInView()
 
   return (
-    <section id="team" className="bg-bg py-16 md:py-24 px-4 md:px-8">
+    <section id="team-ru" className="bg-bg py-16 md:py-24 px-4 md:px-8">
       <div className="max-w-6xl mx-auto">
 
         <div
@@ -128,13 +120,13 @@ export default function Team() {
         >
           <span className="section-label">
             <span className="w-1.5 h-1.5 bg-gold rounded-full"/>
-            Mutaxassislarimiz
+            Наши специалисты
           </span>
           <h2 className="mt-3 font-sans text-2xl md:text-4xl font-extrabold text-white">
-            Ishonchli <span className="gold-gradient">ekspertlar</span>
+            Надёжные <span className="gold-gradient">эксперты</span>
           </h2>
           <p className="mt-2 text-sm text-white/50 max-w-lg">
-            Har bir mutaxassis — konsullik yoki diplomatik soha vakili. Biz tizimni ichidan bilamiz.
+            Каждый специалист — представитель консульской или дипломатической сферы. Мы знаем систему изнутри.
           </p>
         </div>
 

@@ -49,11 +49,11 @@ function FAQItem({ item, index }) {
       <button
         onClick={() => setOpen(!open)}
         aria-expanded={open}
-        className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left bg-surface hover:bg-surface/80 transition-colors"
+        className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left bg-surface hover:bg-surface-2 transition-colors group"
       >
-        <span className="text-sm font-medium text-white/85">{item.q}</span>
-        <span className={`shrink-0 w-6 h-6 rounded-full border border-border flex items-center justify-center transition-transform duration-200 ${open ? 'rotate-45 border-lime/40' : ''}`}>
-          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke={open ? '#C2D100' : 'rgba(255,255,255,0.4)'} strokeWidth="1.6">
+        <span className={`text-sm font-medium transition-colors ${open ? 'text-gold' : 'text-white/85 group-hover:text-white'}`}>{item.q}</span>
+        <span className={`shrink-0 w-6 h-6 rounded-full border flex items-center justify-center transition-all duration-300 ${open ? 'rotate-45 border-gold bg-gold/10 scale-110' : 'border-border group-hover:border-gold/50'}`}>
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke={open ? '#D4AF37' : 'rgba(255,255,255,0.4)'} strokeWidth="1.6" className="transition-colors">
             <path d="M5 1v8M1 5h8"/>
           </svg>
         </span>
@@ -80,13 +80,13 @@ export default function FAQ({ onCTAClick }) {
           className="mb-10"
         >
           <span className="section-label">
-            <span className="w-1.5 h-1.5 bg-lime rounded-full"/>
+            <span className="w-1.5 h-1.5 bg-gold rounded-full"/>
             Ko'p so'raladigan savollar
           </span>
           <h2 className="mt-3 font-sans text-2xl md:text-4xl font-extrabold text-white">
-            Savol va <span className="text-lime">javoblar</span>
+            Savol va <span className="gold-gradient">javoblar</span>
           </h2>
-          <p className="mt-2 text-sm text-white/40 max-w-lg">
+          <p className="mt-2 text-sm text-white/50 max-w-lg">
             Mijozlarimiz eng ko'p so'raydigan savollarga aniq javoblar.
           </p>
         </div>
@@ -97,12 +97,12 @@ export default function FAQ({ onCTAClick }) {
           ))}
         </div>
 
-        <div className="mt-8 card px-5 py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="mt-8 card px-6 py-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-gold/20 shadow-[0_0_20px_rgba(212,175,55,0.05)] bg-gradient-to-r from-surface to-gold/5">
           <div>
-            <p className="font-semibold text-white text-sm">Savolingiz javobsiz qoldimi?</p>
-            <p className="text-xs text-white/40 mt-0.5">Bepul maslahat oling — mutaxassisimiz 24 soat ichida bog'lanadi</p>
+            <p className="font-bold text-white text-base">Savolingiz javobsiz qoldimi?</p>
+            <p className="text-sm text-white/60 mt-1">Bepul maslahat oling — mutaxassisimiz 24 soat ichida bog'lanadi</p>
           </div>
-          <button onClick={onCTAClick} className="btn-lime shrink-0">
+          <button onClick={onCTAClick} className="btn-gold shrink-0 px-8">
             Bepul maslahat →
           </button>
         </div>

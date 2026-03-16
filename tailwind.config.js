@@ -7,16 +7,22 @@ export default {
   theme: {
     extend: {
       colors: {
-        bg: '#0F1115',
-        lime: {
+        bg: '#0F0E0D', // Warmer dark background
+        gold: {
+          DEFAULT: '#D4AF37', // Classic premium gold
+          light: '#F3E5AB',
+          dark: '#AA8822',
+          glow: 'rgba(212,175,55,0.15)',
+        },
+        lime: { // Keeping lime for backward compatibility or dual-tone
           DEFAULT: '#C2D100',
           light: '#D4E500',
           dark: '#A8B800',
           glow: 'rgba(194,209,0,0.15)',
         },
-        surface: '#14180D',
-        'surface-2': '#1A1F10',
-        border: '#1E2415',
+        surface: '#151412',
+        'surface-2': '#1C1A17',
+        border: '#23201C',
         muted: 'rgba(255,255,255,0.45)',
       },
       fontFamily: {

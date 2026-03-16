@@ -1,24 +1,24 @@
 import { useState, useEffect } from 'react'
 
 const COUNTRIES = [
-  "AQSH (B1/B2)",
-  "Buyuk Britaniya",
-  "Kanada",
-  "Shengen (Germaniya)",
-  "Shengen (Fransiya)",
-  "Shengen (Italiya)",
-  "Shengen (Niderlandiya)",
-  "Avstraliya",
-  "Boshqa yo'nalish",
+  "США (B1/B2)",
+  "Великобритания",
+  "Канада",
+  "Шенген (Германия)",
+  "Шенген (Франция)",
+  "Шенген (Италия)",
+  "Шенген (Нидерланды)",
+  "Австралия",
+  "Другое направление",
 ]
 
 const STEPS = [
-  { id: 1, label: "Ariza qabul qilindi", done: true },
-  { id: 2, label: "Hujjatlar tekshirilmoqda", done: false },
-  { id: 3, label: "Viza natijasi", done: false },
+  { id: 1, label: "Заявка принята", done: true },
+  { id: 2, label: "Документы проверяются", done: false },
+  { id: 3, label: "Результат визы", done: false },
 ]
 
-export default function BookingForm({ formRef, selectedCountry }) {
+export default function BookingFormRu({ formRef, selectedCountry }) {
   const [form, setForm] = useState({
     name: '',
     phone: '',
@@ -44,32 +44,32 @@ export default function BookingForm({ formRef, selectedCountry }) {
       tg.expand()
       const user = tg.initDataUnsafe?.user
       const userInfo = user ? ` (${user.first_name}${user.username ? ' @' + user.username : ''})` : ''
-      setUtmInfo(`📱 <b>Manba:</b> Telegram Mini App${userInfo}`)
+      setUtmInfo(`📱 <b>Источник:</b> Telegram Mini App${userInfo}`)
     } else {
       const p = new URLSearchParams(window.location.search)
-      const source = p.get('utm_source') || 'organik'
+      const source = p.get('utm_source') || 'органик'
       const medium = p.get('utm_medium') || '—'
       const campaign = p.get('utm_campaign') || '—'
-      setUtmInfo(`📊 <b>Manba:</b> ${source} | ${medium} | ${campaign}`)
+      setUtmInfo(`📊 <b>Источник:</b> ${source} | ${medium} | ${campaign}`)
     }
   }, [])
 
   const validate = () => {
     const e = {}
-    if (!form.name.trim()) e.name = "Ismingizni kiriting"
+    if (!form.name.trim()) e.name = "Введите ваше имя"
     const phoneClean = form.phone.replace(/\s/g, '')
     if (!phoneClean) {
-      e.phone = "Telefon raqamingizni kiriting"
-    } else if (!/^\+998\d{9}$/.test(phoneClean)) {
-      e.phone = "+998 XX XXX XX XX formatida kiriting"
+      e.phone = "Введите номер телефона"
+    } else if (!/^\+[0-9]{9,14}$/.test(phoneClean)) {
+      e.phone = "Введите номер в формате +998 XX XXX XX XX"
     }
     const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!form.email.trim()) {
-      e.email = "Email kiriting"
+      e.email = "Введите email"
     } else if (!emailRe.test(form.email.trim())) {
-      e.email = "To'g'ri email kiriting (masalan: name@example.com)"
+      e.email = "Введите корректный email (например: name@example.com)"
     }
-    if (!form.country) e.country = "Davlatni tanlang"
+    if (!form.country) e.country = "Выберите страну"
     return e
   }
 
@@ -91,7 +91,7 @@ export default function BookingForm({ formRef, selectedCountry }) {
     const BOT_TOKEN = import.meta.env.VITE_TELEGRAM_BOT_TOKEN
     const CHAT_ID = import.meta.env.VITE_TELEGRAM_CHAT_ID
 
-    const text = `🆕 <b>Yangi ariza!</b>\n\n👤 <b>Ism:</b> ${form.name}\n📞 <b>Telefon:</b> ${form.phone}\n📧 <b>Email:</b> ${form.email}\n🌍 <b>Davlat:</b> ${form.country}${form.message ? `\n💬 <b>Xabar:</b> ${form.message}` : ''}\n\n${utmInfo}`
+    const text = `🆕 <b>Новая заявка! (RU)</b>\n\n👤 <b>Имя:</b> ${form.name}\n📞 <b>Телефон:</b> ${form.phone}\n📧 <b>Email:</b> ${form.email}\n🌍 <b>Страна:</b> ${form.country}${form.message ? `\n💬 <b>Сообщение:</b> ${form.message}` : ''}\n\n${utmInfo}`
 
     try {
       if(BOT_TOKEN && CHAT_ID) {
@@ -104,7 +104,7 @@ export default function BookingForm({ formRef, selectedCountry }) {
         console.error("Telegram credentials are not set in the environment variables.")
       }
     } catch {
-      // tarmoq xatosida ham muvaffaqiyat ko'rsatamiz
+      // show success even on network error
     }
 
     setLoading(false)
@@ -113,21 +113,21 @@ export default function BookingForm({ formRef, selectedCountry }) {
   }
 
   return (
-    <section id="booking" ref={formRef} className="bg-bg py-16 md:py-24 px-4 md:px-8">
+    <section id="booking-ru" ref={formRef} className="bg-bg py-16 md:py-24 px-4 md:px-8">
       <div className="max-w-6xl mx-auto">
 
         <div className="mb-10">
           <span className="section-label">
             <span className="w-1.5 h-1.5 bg-gold rounded-full"/>
-            Bepul konsultatsiya
+            Бесплатная консультация
           </span>
           <h2 className="mt-3 font-sans text-2xl md:text-4xl font-extrabold text-white">
-            Viza olish imkoniyatingizni{' '}
-            <span className="text-gold">10 daqiqada hisoblang.</span>
+            Рассчитайте свои шансы на визу{' '}
+            <span className="text-gold">за 10 минут.</span>
           </h2>
           <p className="mt-2 text-sm text-white/40 max-w-xl leading-relaxed">
-            Anketani to'ldiring va biz sizning holatingizni tahlil qilib, natija ehtimolini foizlarda aytib beramiz.
-            Hech qanday majburiyatsiz — faqat faktlarga asoslangan professional maslahat.
+            Заполните анкету — мы проанализируем вашу ситуацию и скажем вероятность результата в процентах.
+            Без каких-либо обязательств — только профессиональная консультация на основе фактов.
           </p>
         </div>
 
@@ -143,12 +143,11 @@ export default function BookingForm({ formRef, selectedCountry }) {
                   </svg>
                 </div>
                 <div>
-                  <p className="font-extrabold text-white text-xl">Ariza qabul qilindi!</p>
+                  <p className="font-extrabold text-white text-xl">Заявка принята!</p>
                   <p className="text-sm text-white/45 mt-2 max-w-xs mx-auto">
-                    Mutaxassisimiz <span className="text-gold font-bold">24 soat</span> ichida siz bilan bog'lanadi.
+                    Наш специалист свяжется с вами в течение <span className="text-gold font-bold">24 часов</span>.
                   </p>
                 </div>
-                {/* Mini status tracker */}
                 <div className="w-full max-w-xs mt-2">
                   {STEPS.map((step, i) => (
                     <div key={step.id} className="flex items-start gap-3">
@@ -173,9 +172,9 @@ export default function BookingForm({ formRef, selectedCountry }) {
                         <p className={`text-xs ${step.done ? 'text-gold font-bold' : i === 1 ? 'text-white/60' : 'text-white/25'}`}>
                           {step.label}
                         </p>
-                        {step.done && <p className="text-[10px] text-white/30 mt-0.5">Bajarildi</p>}
-                        {!step.done && i === 1 && <p className="text-[10px] text-white/30 mt-0.5">Jarayonda</p>}
-                        {!step.done && i === 2 && <p className="text-[10px] text-white/25 mt-0.5">Navbatda</p>}
+                        {step.done && <p className="text-[10px] text-white/30 mt-0.5">Выполнено</p>}
+                        {!step.done && i === 1 && <p className="text-[10px] text-white/30 mt-0.5">В процессе</p>}
+                        {!step.done && i === 2 && <p className="text-[10px] text-white/25 mt-0.5">Ожидает</p>}
                       </div>
                     </div>
                   ))}
@@ -184,7 +183,7 @@ export default function BookingForm({ formRef, selectedCountry }) {
                   onClick={() => { setSubmitted(false); setErrors({}); setForm({ name:'',phone:'',email:'',country:'',message:'' }) }}
                   className="btn-outline-gold mt-2"
                 >
-                  Yangi ariza
+                  Новая заявка
                 </button>
               </div>
             ) : (
@@ -192,27 +191,27 @@ export default function BookingForm({ formRef, selectedCountry }) {
                 {/* Name */}
                 <div>
                   <label className="text-[11px] text-white/40 uppercase tracking-wide block mb-1.5 font-medium">
-                    To'liq ismingiz <span className="text-gold">*</span>
+                    Ваше полное имя <span className="text-gold">*</span>
                   </label>
                   <input
                     type="text"
                     name="name"
                     value={form.name}
                     onChange={handleChange}
-                    placeholder="Ismingizni kiriting"
-                    aria-describedby={errors.name ? 'err-name' : undefined}
+                    placeholder="Введите ваше имя"
+                    aria-describedby={errors.name ? 'err-name-ru' : undefined}
                     className={`w-full bg-surface-2 border rounded-xl px-4 py-3.5 text-sm text-white placeholder-white/25
                       outline-none transition-all duration-300 focus:border-gold/60 focus:bg-surface focus:shadow-[0_0_15px_rgba(212,175,55,0.08)]
                       ${errors.name ? 'border-red-500/50' : 'border-border'}`}
                   />
-                  {errors.name && <p id="err-name" className="text-[11px] text-red-400 mt-1">{errors.name}</p>}
+                  {errors.name && <p id="err-name-ru" className="text-[11px] text-red-400 mt-1">{errors.name}</p>}
                 </div>
 
                 {/* Phone + Email */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="text-[11px] text-white/40 uppercase tracking-wide block mb-1.5 font-medium">
-                      Telefon raqamingiz <span className="text-gold">*</span>
+                      Номер телефона <span className="text-gold">*</span>
                     </label>
                     <input
                       type="tel"
@@ -220,12 +219,12 @@ export default function BookingForm({ formRef, selectedCountry }) {
                       value={form.phone}
                       onChange={handleChange}
                       placeholder="+998 90 123 45 67"
-                      aria-describedby={errors.phone ? 'err-phone' : undefined}
+                      aria-describedby={errors.phone ? 'err-phone-ru' : undefined}
                       className={`w-full bg-surface-2 border rounded-xl px-4 py-3.5 text-sm text-white placeholder-white/25
                         outline-none transition-all duration-300 focus:border-gold/60 focus:bg-surface focus:shadow-[0_0_15px_rgba(212,175,55,0.08)]
                         ${errors.phone ? 'border-red-500/50' : 'border-border'}`}
                     />
-                    {errors.phone && <p id="err-phone" className="text-[11px] text-red-400 mt-1">{errors.phone}</p>}
+                    {errors.phone && <p id="err-phone-ru" className="text-[11px] text-red-400 mt-1">{errors.phone}</p>}
                   </div>
                   <div>
                     <label className="text-[11px] text-white/40 uppercase tracking-wide block mb-1.5 font-medium">
@@ -237,49 +236,49 @@ export default function BookingForm({ formRef, selectedCountry }) {
                       value={form.email}
                       onChange={handleChange}
                       placeholder="email@example.com"
-                      aria-describedby={errors.email ? 'err-email' : undefined}
+                      aria-describedby={errors.email ? 'err-email-ru' : undefined}
                       className={`w-full bg-surface-2 border rounded-xl px-4 py-3.5 text-sm text-white placeholder-white/25
                         outline-none transition-all duration-300 focus:border-gold/60 focus:bg-surface focus:shadow-[0_0_15px_rgba(212,175,55,0.08)]
                         ${errors.email ? 'border-red-500/50' : 'border-border'}`}
                     />
-                    {errors.email && <p id="err-email" className="text-[11px] text-red-400 mt-1">{errors.email}</p>}
+                    {errors.email && <p id="err-email-ru" className="text-[11px] text-red-400 mt-1">{errors.email}</p>}
                   </div>
                 </div>
 
                 {/* Country select */}
                 <div>
                   <label className="text-[11px] text-white/40 uppercase tracking-wide block mb-1.5 font-medium">
-                    Sizni qaysi davlat qiziqtiradi? <span className="text-gold">*</span>
+                    Какая страна вас интересует? <span className="text-gold">*</span>
                   </label>
                   <select
                     name="country"
                     value={form.country}
                     onChange={handleChange}
-                    aria-describedby={errors.country ? 'err-country' : undefined}
+                    aria-describedby={errors.country ? 'err-country-ru' : undefined}
                     className={`w-full bg-surface-2 border rounded-xl px-4 py-3.5 text-sm outline-none
                       transition-all duration-300 focus:border-gold/60 focus:bg-surface focus:shadow-[0_0_15px_rgba(212,175,55,0.08)] appearance-none cursor-pointer
                       ${form.country ? 'text-white' : 'text-white/25'}
                       ${errors.country ? 'border-red-500/50' : 'border-border'}`}
                   >
-                    <option value="" disabled>Davlatni tanlang</option>
+                    <option value="" disabled>Выберите страну</option>
                     {COUNTRIES.map((c) => (
                       <option key={c} value={c}>{c}</option>
                     ))}
                   </select>
-                  {errors.country && <p id="err-country" className="text-[11px] text-red-400 mt-1">{errors.country}</p>}
+                  {errors.country && <p id="err-country-ru" className="text-[11px] text-red-400 mt-1">{errors.country}</p>}
                 </div>
 
                 {/* Message */}
                 <div>
                   <label className="text-[11px] text-white/40 uppercase tracking-wide block mb-1.5 font-medium">
-                    Xabaringiz (ixtiyoriy)
+                    Ваше сообщение (необязательно)
                   </label>
                   <textarea
                     name="message"
                     value={form.message}
                     onChange={handleChange}
                     rows={4}
-                    placeholder="Savollaringizni qoldiring..."
+                    placeholder="Оставьте ваши вопросы..."
                     className="w-full bg-surface-2 border border-border rounded-xl px-4 py-3 text-sm text-white
                       placeholder-white/25 outline-none transition-all duration-300 focus:border-gold/60 focus:bg-surface focus:shadow-[0_0_15px_rgba(212,175,55,0.08)] resize-none"
                   />
@@ -296,11 +295,11 @@ export default function BookingForm({ formRef, selectedCountry }) {
                         <circle cx="8" cy="8" r="6" strokeOpacity="0.3"/>
                         <path d="M8 2a6 6 0 0 1 6 6"/>
                       </svg>
-                      Yuborilmoqda...
+                      Отправка...
                     </>
                   ) : (
                     <>
-                      Ariza yuborish
+                      Отправить заявку
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8">
                         <path d="M3 8h10M9 4l4 4-4 4"/>
                       </svg>
@@ -313,7 +312,7 @@ export default function BookingForm({ formRef, selectedCountry }) {
                     <rect x="2" y="5" width="8" height="6" rx="1"/>
                     <path d="M4 5V4a2 2 0 0 1 4 0v1"/>
                   </svg>
-                  Ma'lumotlaringiz xavfsizligi kafolatlanadi
+                  Конфиденциальность ваших данных гарантирована
                 </p>
               </form>
             )}
@@ -324,13 +323,13 @@ export default function BookingForm({ formRef, selectedCountry }) {
 
             {/* Process card */}
             <div className="card p-5">
-              <p className="text-[11px] text-white/30 uppercase tracking-widest mb-4">Jarayon qanday ishlaydi</p>
+              <p className="text-[11px] text-white/30 uppercase tracking-widest mb-4">Как работает процесс</p>
               <div className="space-y-1">
                 {[
-                  { step: '01', title: 'Ariza qabul qilinadi', desc: 'Anketani to\'ldiring' },
-                  { step: '02', title: 'Tahlil o\'tkaziladi', desc: '24 soat ichida javob' },
-                  { step: '03', title: 'Strategiya taqdim etiladi', desc: 'Muvaffaqiyat foizi bilan' },
-                  { step: '04', title: 'Viza olinadi', desc: 'Kafolatli natija' },
+                  { step: '01', title: 'Заявка принимается', desc: 'Заполните анкету' },
+                  { step: '02', title: 'Проводится анализ', desc: 'Ответ в течение 24 часов' },
+                  { step: '03', title: 'Стратегия предоставляется', desc: 'С процентом успешности' },
+                  { step: '04', title: 'Виза получена', desc: 'Гарантированный результат' },
                 ].map(({ step, title, desc }, i, arr) => (
                   <div key={step} className="flex items-start gap-4">
                     <div className="flex flex-col items-center">
@@ -356,9 +355,8 @@ export default function BookingForm({ formRef, selectedCountry }) {
 
             {/* Contact info */}
             <div className="card p-5 flex flex-col gap-3">
-              <p className="text-[11px] text-white/30 uppercase tracking-widest">Bog'lanish</p>
+              <p className="text-[11px] text-white/30 uppercase tracking-widest">Контакты</p>
 
-              {/* Telefon */}
               <div className="flex items-start gap-3">
                 <div className="w-8 h-8 rounded-lg bg-gold/10 border border-gold/20 flex items-center justify-center shrink-0 text-gold">
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -366,13 +364,12 @@ export default function BookingForm({ formRef, selectedCountry }) {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-[10px] text-white/30 uppercase tracking-wide">Telefon</p>
+                  <p className="text-[10px] text-white/30 uppercase tracking-wide">Телефон</p>
                   <a href="tel:+998712755555" className="block text-xs text-white/70 mt-0.5 hover:text-gold transition-colors">+998 71 275 55 55</a>
                   <a href="tel:+998983667773" className="block text-xs text-white/70 mt-0.5 hover:text-gold transition-colors">+998 98 366 77 73</a>
                 </div>
               </div>
 
-              {/* Email */}
               <div className="flex items-start gap-3">
                 <div className="w-8 h-8 rounded-lg bg-gold/10 border border-gold/20 flex items-center justify-center shrink-0 text-gold">
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -386,7 +383,6 @@ export default function BookingForm({ formRef, selectedCountry }) {
                 </div>
               </div>
 
-              {/* Manzil */}
               <div className="flex items-start gap-3">
                 <div className="w-8 h-8 rounded-lg bg-gold/10 border border-gold/20 flex items-center justify-center shrink-0 text-gold">
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -395,25 +391,17 @@ export default function BookingForm({ formRef, selectedCountry }) {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-[10px] text-white/30 uppercase tracking-wide">Manzil</p>
-                  <a
-                    href="https://yandex.uz/maps/-/CPBlrKl7"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-1 text-xs text-white/70 mt-0.5 hover:text-gold transition-colors group"
-                  >
-                    <span>Katta Xitmontepa ko'chasi 12a/1</span>
+                  <p className="text-[10px] text-white/30 uppercase tracking-wide">Адрес</p>
+                  <a href="https://yandex.uz/maps/-/CPBlrKl7" target="_blank" rel="noopener noreferrer"
+                    className="flex items-center gap-1 text-xs text-white/70 mt-0.5 hover:text-gold transition-colors group">
+                    <span>ул. Катта Хитмонтепа 12а/1</span>
                     <svg className="shrink-0 opacity-40 group-hover:opacity-100" width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5">
                       <path d="M2 8L8 2M4 2h4v4"/>
                     </svg>
                   </a>
-                  <a
-                    href="https://yandex.uz/maps/-/CPBlrLYu"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-1 text-xs text-white/70 mt-1 hover:text-gold transition-colors group"
-                  >
-                    <span>Kichik halqa yo'li, Park City TJM</span>
+                  <a href="https://yandex.uz/maps/-/CPBlrLYu" target="_blank" rel="noopener noreferrer"
+                    className="flex items-center gap-1 text-xs text-white/70 mt-1 hover:text-gold transition-colors group">
+                    <span>Малое кольцо, Park City TJM</span>
                     <svg className="shrink-0 opacity-40 group-hover:opacity-100" width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5">
                       <path d="M2 8L8 2M4 2h4v4"/>
                     </svg>

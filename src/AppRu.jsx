@@ -1,13 +1,19 @@
 import { useRef, useState } from 'react'
-import { TRUST_STRIP_STATS } from './constants'
-import Hero from './components/Hero'
-import Services from './components/Services'
-import Team from './components/Team'
-import Testimonials from './components/Testimonials'
-import FAQ from './components/FAQ'
-import BookingForm from './components/BookingForm'
+import HeroRu from './ru/HeroRu'
+import ServicesRu from './ru/ServicesRu'
+import TeamRu from './ru/TeamRu'
+import TestimonialsRu from './ru/TestimonialsRu'
+import FAQRu from './ru/FAQRu'
+import BookingFormRu from './ru/BookingFormRu'
 
-export default function App({ onLangSwitch }) {
+const TRUST_STRIP_STATS = [
+  { value: '15 лет', label: 'Работаем с 2011 года' },
+  { value: '20+', label: 'Стран обслуживаем' },
+  { value: '12 000+', label: 'Одобренных виз' },
+  { value: '247', label: 'Спасённых дел после отказа (2025)' },
+]
+
+export default function AppRu({ onLangSwitch }) {
   const bookingRef = useRef(null)
   const [selectedCountry, setSelectedCountry] = useState('')
 
@@ -19,7 +25,7 @@ export default function App({ onLangSwitch }) {
   return (
     <div className="min-h-screen bg-bg">
       {/* 1. Hero */}
-      <Hero onCTAClick={scrollToBooking} onDestinationClick={scrollToBooking} onLangSwitch={onLangSwitch} />
+      <HeroRu onCTAClick={scrollToBooking} onDestinationClick={scrollToBooking} onLangSwitch={onLangSwitch} />
 
       {/* Divider */}
       <div className="max-w-6xl mx-auto px-4 md:px-8">
@@ -40,13 +46,13 @@ export default function App({ onLangSwitch }) {
           </div>
           <span className="section-label shrink-0">
             <span className="w-1.5 h-1.5 bg-gold rounded-full animate-pulse"/>
-            ISHONCHLI HAMKOR
+            НАДЁЖНЫЙ ПАРТНЁР
           </span>
         </div>
       </div>
 
       {/* 2. Services */}
-      <Services />
+      <ServicesRu />
 
       {/* Divider */}
       <div className="max-w-6xl mx-auto px-4 md:px-8">
@@ -54,7 +60,7 @@ export default function App({ onLangSwitch }) {
       </div>
 
       {/* 3. Team */}
-      <Team />
+      <TeamRu />
 
       {/* Divider */}
       <div className="max-w-6xl mx-auto px-4 md:px-8">
@@ -62,7 +68,7 @@ export default function App({ onLangSwitch }) {
       </div>
 
       {/* 4. Testimonials */}
-      <Testimonials />
+      <TestimonialsRu />
 
       {/* Divider */}
       <div className="max-w-6xl mx-auto px-4 md:px-8">
@@ -70,7 +76,7 @@ export default function App({ onLangSwitch }) {
       </div>
 
       {/* 5. FAQ */}
-      <FAQ onCTAClick={scrollToBooking} />
+      <FAQRu onCTAClick={scrollToBooking} />
 
       {/* Divider */}
       <div className="max-w-6xl mx-auto px-4 md:px-8">
@@ -78,7 +84,7 @@ export default function App({ onLangSwitch }) {
       </div>
 
       {/* 6. Booking */}
-      <BookingForm formRef={bookingRef} selectedCountry={selectedCountry} />
+      <BookingFormRu formRef={bookingRef} selectedCountry={selectedCountry} />
 
       {/* Footer */}
       <footer className="border-t border-border bg-surface">
@@ -92,18 +98,18 @@ export default function App({ onLangSwitch }) {
             </div>
             <div>
               <span className="font-semibold text-[15px]"><span className="text-white">SEM </span><span className="text-gold">VISA</span></span>
-              <p className="text-[10px] text-white/25 mt-0.5">Viza konsaltingi — 2011-yildan beri</p>
+              <p className="text-[10px] text-white/25 mt-0.5">Визовый консалтинг — с 2011 года</p>
             </div>
           </div>
 
           <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-white/35">
-            {[['#services','Xizmatlar'],['#team','Mutaxassislar'],['#testimonials','Sharhlar'],['#faq','FAQ'],['#booking','Aloqa']].map(([href,label]) => (
+            {[['#services-ru','Услуги'],['#team-ru','Специалисты'],['#testimonials-ru','Отзывы'],['#faq-ru','FAQ'],['#booking-ru','Контакты']].map(([href,label]) => (
               <a key={href} href={href} className="hover:text-gold transition-colors">{label}</a>
             ))}
           </div>
 
           <p className="text-[11px] text-white/20">
-            © 2025 Semtravel Premium. Barcha huquqlar himoyalangan.
+            © 2025 Semtravel Premium. Все права защищены.
           </p>
         </div>
       </footer>

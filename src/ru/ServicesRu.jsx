@@ -4,50 +4,50 @@ const SERVICES = [
   {
     id: '01',
     flag: '🇺🇸',
-    tag: 'AQSH / BUYUK BRITANIYA / KANADA',
-    title: "Murakkab vizalar",
-    pain: "\"Pasportim bo'sh yoki daromadim kam, baribir rad javobi berishadi.\"",
-    result: "Biz sizning ijtimoiy va iqtisodiy aloqalaringizni to'g'ri shakllantiramiz. Natijada konsul sizni ishonchli sayyoh sifatida ko'radi.",
+    tag: 'США / ВЕЛИКОБРИТАНИЯ / КАНАДА',
+    title: "Сложные визы",
+    pain: "\"Паспорт пустой или доход низкий — всё равно откажут.\"",
+    result: "Мы правильно формируем ваши социальные и экономические связи. В результате консул воспринимает вас как надёжного путешественника.",
     features: [
-      "To'liq hujjat dosyesi tayyorlash",
-      "Moliyaviy profil strategiyasi",
-      "Ishonchli cover letter",
-      "Konsul savollariga tayyorgarlik",
+      "Полное досье документов",
+      "Стратегия финансового профиля",
+      "Надёжное сопроводительное письмо",
+      "Подготовка к вопросам консула",
     ],
     badge: '98%',
-    badgeLabel: 'Tasdiqlash',
+    badgeLabel: 'Одобрение',
   },
   {
     id: '02',
     flag: '🔄',
-    tag: 'RAD JAVOBIDAN KEYIN',
-    title: "Rad javobidan keyin viza olish",
-    pain: "\"Bir marta 'otkaz' oldim, endi yo'lim yopiq.\"",
-    result: "Rad javobi sabablarini 72 soat ichida huquqiy tahlil qilamiz va xatolarni tuzatib, qayta ishonchli ariza tayyorlaymiz.",
+    tag: 'ПОСЛЕ ОТКАЗА',
+    title: "Получение визы после отказа",
+    pain: "\"Один раз получил отказ — теперь путь закрыт.\"",
+    result: "Анализируем причины отказа за 72 часа и готовим новое заявление с исправленными ошибками.",
     features: [
-      "Rad xati huquqiy tahlili",
-      "Hujjatlardagi xatolarni aniqlash",
-      "Qayta topshirish strategiyasi",
-      "Har bosqichda shaxsiy kuzatish",
+      "Юридический анализ письма об отказе",
+      "Выявление ошибок в документах",
+      "Стратегия повторной подачи",
+      "Личное сопровождение на каждом этапе",
     ],
     badge: '72ч',
-    badgeLabel: 'Tahlil vaqti',
+    badgeLabel: 'Время анализа',
   },
   {
     id: '03',
     flag: '🎯',
-    tag: 'PSIXOLOGIK TAYYORGARLIK',
-    title: "Suhbat simulyatsiyasi",
-    pain: "\"Konsulning kutilmagan savollaridan qo'rqaman.\"",
-    result: "Real elchixona sharoitidagi 3 ta repetitsion suhbatdan o'tasiz. Sizda har qanday savolga mantiqiy va tayyor javob bo'ladi.",
+    tag: 'ПСИХОЛОГИЧЕСКАЯ ПОДГОТОВКА',
+    title: "Симуляция собеседования",
+    pain: "\"Боюсь неожиданных вопросов консула.\"",
+    result: "Пройдёте 3 тренировочных собеседования в условиях реального посольства. У вас будет логичный готовый ответ на любой вопрос.",
     features: [
-      "Real suhbat simulyatsiyasi",
-      "Stress va xavotir bilan ishlash",
-      "Video tahlil va fikr-mulohaza",
-      "Noverbal xulq-atvorni tuzatish",
+      "Симуляция реального собеседования",
+      "Работа со стрессом и тревогой",
+      "Видеоанализ и обратная связь",
+      "Коррекция невербального поведения",
     ],
     badge: '100%',
-    badgeLabel: 'Ishonch',
+    badgeLabel: 'Уверенность',
   },
 ]
 
@@ -60,7 +60,6 @@ function ServiceCard({ s, index }) {
       style={{ opacity: 0, transform: 'translateY(20px)', transition: 'all 0.6s ease' }}
       className="card flex flex-col hover:border-gold/40 transition-colors group cursor-pointer hover:shadow-[0_8px_30px_rgba(212,175,55,0.08)]"
     >
-      {/* Header */}
       <div className="p-5 border-b border-border flex items-center justify-between bg-gradient-to-br from-surface to-surface-2 group-hover:from-surface-2 group-hover:to-surface transition-colors">
         <div className="flex items-center gap-3">
           <span className="text-3xl drop-shadow-md group-hover:scale-110 transition-transform duration-300">{s.flag}</span>
@@ -75,14 +74,13 @@ function ServiceCard({ s, index }) {
         </div>
       </div>
 
-      {/* Pain / Result */}
       <div className="p-5 flex-1 flex flex-col gap-4">
         <div className="bg-red-500/5 border border-red-500/15 rounded-xl p-3">
-          <p className="text-[10px] text-red-400/80 uppercase tracking-wide font-semibold mb-1">Muammo</p>
+          <p className="text-[10px] text-red-400/80 uppercase tracking-wide font-semibold mb-1">Проблема</p>
           <p className="text-xs text-white/60 italic leading-relaxed">{s.pain}</p>
         </div>
         <div className="bg-gold/5 border border-gold/15 rounded-xl p-3">
-          <p className="text-[10px] text-gold uppercase tracking-wide font-semibold mb-1">Natija</p>
+          <p className="text-[10px] text-gold uppercase tracking-wide font-semibold mb-1">Результат</p>
           <p className="text-xs text-white/80 leading-relaxed font-medium">{s.result}</p>
         </div>
 
@@ -98,10 +96,9 @@ function ServiceCard({ s, index }) {
         </ul>
       </div>
 
-      {/* Footer */}
       <div className="px-5 pb-5 pt-4 border-t border-border bg-surface-2/50 group-hover:bg-surface transition-colors">
-        <a href="#booking" className="flex items-center justify-between text-xs font-bold text-gold cursor-pointer">
-          <span className="tracking-wide">MASLAHAT OLISH</span>
+        <a href="#booking-ru" className="flex items-center justify-between text-xs font-bold text-gold cursor-pointer">
+          <span className="tracking-wide">ПОЛУЧИТЬ КОНСУЛЬТАЦИЮ</span>
           <div className="w-6 h-6 rounded-full bg-gold/10 flex items-center justify-center group-hover:bg-gold group-hover:text-bg transition-colors duration-300">
             <svg className="group-hover:translate-x-0.5 transition-transform" width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M2 7h10M8 3l4 4-4 4"/>
@@ -113,11 +110,11 @@ function ServiceCard({ s, index }) {
   )
 }
 
-export default function Services() {
+export default function ServicesRu() {
   const headRef = useInView()
 
   return (
-    <section id="services" className="bg-bg py-16 md:py-24 px-4 md:px-8">
+    <section id="services-ru" className="bg-bg py-16 md:py-24 px-4 md:px-8">
       <div className="max-w-6xl mx-auto">
 
         <div
@@ -127,13 +124,13 @@ export default function Services() {
         >
           <span className="section-label">
             <span className="w-1.5 h-1.5 bg-gold rounded-full"/>
-            Xizmatlarimiz
+            Наши услуги
           </span>
           <h2 className="mt-3 font-sans text-2xl md:text-4xl font-extrabold text-white">
-            Ommabop <span className="gold-gradient">xizmatlar</span>
+            Популярные <span className="gold-gradient">услуги</span>
           </h2>
           <p className="mt-2 text-sm text-white/50 max-w-lg leading-relaxed">
-            Har bir xizmat — tadbirkorning muayyan muammosiga aniq javob. Biz umid sotmaymiz — biz tizim sotamiz.
+            Каждая услуга — конкретный ответ на конкретную проблему предпринимателя. Мы продаём не надежду — мы продаём систему.
           </p>
         </div>
 
@@ -145,11 +142,11 @@ export default function Services() {
 
         <div className="mt-6 card px-6 py-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-gold/20 shadow-[0_0_20px_rgba(212,175,55,0.05)] bg-gradient-to-r from-surface to-gold/5">
           <div>
-            <p className="font-bold text-white text-base">Noodatiy holat bormi?</p>
-            <p className="text-sm text-white/60 mt-1 max-w-md">Vaziyatingizni tasvirlab bering — 24 soat ichida individual kafolatli yechim topamiz.</p>
+            <p className="font-bold text-white text-base">Нестандартная ситуация?</p>
+            <p className="text-sm text-white/60 mt-1 max-w-md">Опишите свою ситуацию — в течение 24 часов найдём индивидуальное гарантированное решение.</p>
           </div>
-          <a href="#booking" className="btn-gold shrink-0 px-8">
-            Vaziyatni tasvirlash →
+          <a href="#booking-ru" className="btn-gold shrink-0 px-8">
+            Описать ситуацию →
           </a>
         </div>
 

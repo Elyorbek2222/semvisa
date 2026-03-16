@@ -19,6 +19,27 @@
 }
 
 @layer components {
+  .gold-gradient {
+    background: linear-gradient(135deg, #D4AF37 0%, #F3E5AB 50%, #D4AF37 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .btn-gold {
+    @apply bg-gradient-to-r from-[#D4AF37] to-[#AA8822] text-bg font-bold rounded-xl px-6 py-3.5 text-sm
+           transition-all duration-300 shadow-md
+           hover:shadow-[0_4px_24px_rgba(212,175,55,0.3)] hover:-translate-y-0.5
+           active:scale-[0.97];
+  }
+
+  .btn-outline-gold {
+    @apply border border-gold/40 text-gold font-medium rounded-xl px-6 py-3.5 text-sm
+           transition-all duration-300
+           hover:bg-gold/10 hover:border-gold;
+  }
+
+  /* Keeping lime for compatibility if needed, but gold is primary now */
   .lime-gradient {
     background: linear-gradient(135deg, #C2D100 0%, #D4E500 60%, #C2D100 100%);
     -webkit-background-clip: text;
@@ -40,13 +61,30 @@
   }
 
   .card {
-    @apply bg-surface border border-border rounded-2xl;
+    @apply bg-surface border border-border rounded-2xl relative overflow-hidden;
+  }
+  
+  /* Add a subtle shine effect to cards */
+  .card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.03), transparent);
+    transform: skewX(-20deg);
+    transition: all 0.7s ease;
+  }
+  
+  .card:hover::after {
+    left: 200%;
   }
 
   .section-label {
-    @apply inline-flex items-center gap-1.5 bg-lime/10 border border-lime/20
-           text-lime text-[11px] font-semibold tracking-[0.18em] uppercase
-           px-3 py-1.5 rounded-full;
+    @apply inline-flex items-center gap-1.5 bg-gold/10 border border-gold/20
+           text-gold text-[11px] font-semibold tracking-[0.18em] uppercase
+           px-4 py-2 rounded-full;
   }
 
   .stat-badge {

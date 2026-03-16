@@ -1,14 +1,20 @@
 import { useEffect, useRef, useState } from 'react'
-import { HERO_STATS } from '../constants'
 
-const TOP_DESTINATIONS = [
-  { flag: '🇺🇸', country: 'AQSH', name: 'Biznes vizasi (B1/B2)', badge: '98%', selectValue: 'AQSH (B1/B2)' },
-  { flag: '🇬🇧', country: 'Buyuk Britaniya', name: 'Ishchi viza', badge: '97%', selectValue: 'Buyuk Britaniya' },
-  { flag: '🇩🇪', country: 'Germaniya', name: 'Shengen Biznes', badge: '99%', selectValue: 'Shengen (Germaniya)' },
-  { flag: '🇨🇦', country: 'Kanada', name: 'Viza kalit ostida', badge: '96%', selectValue: 'Kanada' },
+const HERO_STATS = [
+  { value: '15+', label: 'Лет опыта' },
+  { value: '12 000+', label: 'Одобренных виз' },
+  { value: '98%', label: 'С первой попытки' },
+  { value: '247', label: 'Спасённых дел после отказа (2025)' },
 ]
 
-function NavBar({ onCTAClick, menuOpen, setMenuOpen, onLangSwitch }) {
+const TOP_DESTINATIONS = [
+  { flag: '🇺🇸', country: 'США', name: 'Деловая виза (B1/B2)', badge: '98%', selectValue: 'США (B1/B2)' },
+  { flag: '🇬🇧', country: 'Великобритания', name: 'Рабочая виза', badge: '97%', selectValue: 'Великобритания' },
+  { flag: '🇩🇪', country: 'Германия', name: 'Шенген Бизнес', badge: '99%', selectValue: 'Шенген (Германия)' },
+  { flag: '🇨🇦', country: 'Канада', name: 'Виза под ключ', badge: '96%', selectValue: 'Канада' },
+]
+
+function NavBarRu({ onCTAClick, menuOpen, setMenuOpen, onLangSwitch }) {
   return (
     <nav className="sticky top-0 z-50 bg-bg/95 backdrop-blur-md border-b border-border">
       <div className="max-w-6xl mx-auto px-4 md:px-8 h-14 flex items-center justify-between">
@@ -25,7 +31,7 @@ function NavBar({ onCTAClick, menuOpen, setMenuOpen, onLangSwitch }) {
         </a>
 
         <div className="hidden md:flex items-center gap-6">
-          {[['#services','Xizmatlar'],['#team','Mutaxassislar'],['#testimonials','Sharhlar']].map(([href, label]) => (
+          {[['#services-ru','Услуги'],['#team-ru','Специалисты'],['#testimonials-ru','Отзывы']].map(([href, label]) => (
             <a key={href} href={href} className="text-sm text-white/50 hover:text-white transition-colors">
               {label}
             </a>
@@ -35,10 +41,10 @@ function NavBar({ onCTAClick, menuOpen, setMenuOpen, onLangSwitch }) {
             onClick={onLangSwitch}
             className="flex items-center gap-1.5 border border-gold/30 rounded-lg px-3 py-1.5 text-xs font-bold text-gold hover:bg-gold/10 transition-all"
           >
-            🇷🇺 RU
+            🇺🇿 UZ
           </button>
           <button onClick={onCTAClick} className="btn-gold">
-            Bepul tahlil →
+            Бесплатный анализ →
           </button>
         </div>
 
@@ -47,11 +53,11 @@ function NavBar({ onCTAClick, menuOpen, setMenuOpen, onLangSwitch }) {
             onClick={onLangSwitch}
             className="flex items-center gap-1 border border-gold/30 rounded-lg px-2.5 py-1 text-[11px] font-bold text-gold hover:bg-gold/10 transition-all"
           >
-            🇷🇺 RU
+            🇺🇿 UZ
           </button>
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            aria-label={menuOpen ? "Menyuni yopish" : "Menyuni ochish"}
+            aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}
             aria-expanded={menuOpen}
             className="w-11 h-11 flex flex-col justify-center gap-1.5 items-center"
           >
@@ -64,14 +70,14 @@ function NavBar({ onCTAClick, menuOpen, setMenuOpen, onLangSwitch }) {
 
       {menuOpen && (
         <div className="md:hidden bg-surface border-t border-border px-4 py-4 flex flex-col gap-1">
-          {[['#services','Xizmatlar'],['#team','Mutaxassislar'],['#testimonials','Sharhlar']].map(([href, label]) => (
+          {[['#services-ru','Услуги'],['#team-ru','Специалисты'],['#testimonials-ru','Отзывы']].map(([href, label]) => (
             <a key={href} href={href} onClick={() => setMenuOpen(false)}
                className="text-sm text-white/60 py-3 border-b border-border last:border-0 hover:text-gold transition-colors">
               {label}
             </a>
           ))}
           <button onClick={() => { setMenuOpen(false); onCTAClick() }} className="btn-gold mt-3 text-center">
-            Bepul viza tahlilini olish →
+            Получить бесплатный анализ визы →
           </button>
         </div>
       )}
@@ -79,7 +85,7 @@ function NavBar({ onCTAClick, menuOpen, setMenuOpen, onLangSwitch }) {
   )
 }
 
-export default function Hero({ onCTAClick, onDestinationClick, onLangSwitch }) {
+export default function HeroRu({ onCTAClick, onDestinationClick, onLangSwitch }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const sectionRef = useRef(null)
 
@@ -107,56 +113,49 @@ export default function Hero({ onCTAClick, onDestinationClick, onLangSwitch }) {
 
   return (
     <>
-      <NavBar onCTAClick={onCTAClick} menuOpen={menuOpen} setMenuOpen={setMenuOpen} onLangSwitch={onLangSwitch} />
+      <NavBarRu onCTAClick={onCTAClick} menuOpen={menuOpen} setMenuOpen={setMenuOpen} onLangSwitch={onLangSwitch} />
 
-      <section ref={sectionRef} id="hero" className="bg-bg py-10 px-4 md:px-8">
+      <section ref={sectionRef} id="hero-ru" className="bg-bg py-10 px-4 md:px-8">
         <div className="max-w-6xl mx-auto">
 
-          {/* Badge */}
           <div>
             <span className="section-label">
               <span className="w-1.5 h-1.5 bg-gold rounded-full animate-pulse"/>
-              VIZA KONSALTINGI №1 BIZNES UCHUN
+              ВИЗОВЫЙ КОНСАЛТИНГ №1 ДЛЯ БИЗНЕСА
             </span>
           </div>
 
-          {/* H1 — LCP: opacity:0 yo'q, darhol ko'rinadi */}
-          <h1
-            className="mt-4 font-sans text-[28px] md:text-5xl lg:text-6xl font-extrabold leading-[1.12] text-white max-w-3xl"
-          >
-            Viza rad etilishi xavfidan qutuling:{' '}
-            <span className="gold-gradient drop-shadow-[0_0_15px_rgba(212,175,55,0.3)]">Birinchi urinishda 98% natija.</span>
+          <h1 className="mt-4 font-sans text-[28px] md:text-5xl lg:text-6xl font-extrabold leading-[1.12] text-white max-w-3xl">
+            Избавьтесь от риска отказа в визе:{' '}
+            <span className="gold-gradient drop-shadow-[0_0_15px_rgba(212,175,55,0.3)]">98% результат с первой попытки.</span>
           </h1>
 
-          {/* Subtitle */}
           <p
             data-fade
             style={{opacity:0,transform:'translateY(14px)',transition:'all 0.5s ease'}}
             className="mt-4 text-sm md:text-base text-white/50 leading-relaxed max-w-xl"
           >
-            Biz shunchaki hujjat to'ldirmaymiz, balki konsulda savol qoldirmaydigan
-            huquqiy strategiya quramiz. Hujjatlaringizni elchixonaga topshirishdan oldin
-            3 bosqichli auditdan o'tkazing.
+            Мы не просто заполняем документы — мы выстраиваем юридическую стратегию,
+            при которой у консула не остаётся вопросов. Пройдите 3-этапный аудит
+            документов перед подачей в посольство.
           </p>
 
-          {/* CTAs */}
           <div
             data-fade
             style={{opacity:0,transform:'translateY(14px)',transition:'all 0.5s ease'}}
             className="mt-6 flex flex-col sm:flex-row gap-3"
           >
             <button onClick={onCTAClick} className="btn-gold flex items-center justify-center gap-2 text-[15px]">
-              Bepul viza tahlilini olish
+              Получить бесплатный анализ
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8">
                 <path d="M3 8h10M9 4l4 4-4 4"/>
               </svg>
             </button>
-            <a href="#services" className="btn-outline-gold text-center text-[15px]">
-              Xizmatlar bilan tanishish
+            <a href="#services-ru" className="btn-outline-gold text-center text-[15px]">
+              Ознакомиться с услугами
             </a>
           </div>
 
-          {/* Stats grid */}
           <div
             data-fade
             style={{opacity:0,transform:'translateY(14px)',transition:'all 0.5s ease'}}
@@ -170,13 +169,12 @@ export default function Hero({ onCTAClick, onDestinationClick, onLangSwitch }) {
             ))}
           </div>
 
-          {/* Popular destinations */}
           <div
             data-fade
             style={{opacity:0,transform:'translateY(14px)',transition:'all 0.5s ease'}}
             className="mt-8"
           >
-            <p className="text-[10px] text-white/30 uppercase tracking-widest mb-3">Mashhur yo'nalishlar</p>
+            <p className="text-[10px] text-white/30 uppercase tracking-widest mb-3">Популярные направления</p>
             <div className="flex flex-col gap-2">
               {TOP_DESTINATIONS.map(({ flag, country, name, badge, selectValue }) => (
                 <div
