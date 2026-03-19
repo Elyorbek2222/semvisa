@@ -25,6 +25,7 @@ export default function BookingForm({ formRef, selectedCountry }) {
     email: '',
     country: '',
     message: '',
+    referral: '',
   })
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -91,7 +92,7 @@ export default function BookingForm({ formRef, selectedCountry }) {
     const BOT_TOKEN = import.meta.env.VITE_TELEGRAM_BOT_TOKEN
     const CHAT_ID = import.meta.env.VITE_TELEGRAM_CHAT_ID
 
-    const text = `🆕 <b>Yangi ariza!</b>\n\n👤 <b>Ism:</b> ${form.name}\n📞 <b>Telefon:</b> ${form.phone}\n📧 <b>Email:</b> ${form.email}\n🌍 <b>Davlat:</b> ${form.country}${form.message ? `\n💬 <b>Xabar:</b> ${form.message}` : ''}\n\n${utmInfo}`
+    const text = `🆕 <b>Yangi ariza!</b>\n\n👤 <b>Ism:</b> ${form.name}\n📞 <b>Telefon:</b> ${form.phone}\n📧 <b>Email:</b> ${form.email}\n🌍 <b>Davlat:</b> ${form.country}${form.referral ? `\n🤝 <b>Kim yubordi:</b> ${form.referral}` : ''}${form.message ? `\n💬 <b>Xabar:</b> ${form.message}` : ''}\n\n${utmInfo}`
 
     try {
       if(BOT_TOKEN && CHAT_ID) {
@@ -181,7 +182,7 @@ export default function BookingForm({ formRef, selectedCountry }) {
                   ))}
                 </div>
                 <button
-                  onClick={() => { setSubmitted(false); setErrors({}); setForm({ name:'',phone:'',email:'',country:'',message:'' }) }}
+                  onClick={() => { setSubmitted(false); setErrors({}); setForm({ name:'',phone:'',email:'',country:'',message:'',referral:'' }) }}
                   className="btn-outline-gold mt-2"
                 >
                   Yangi ariza
@@ -269,6 +270,22 @@ export default function BookingForm({ formRef, selectedCountry }) {
                   {errors.country && <p id="err-country" className="text-[11px] text-red-400 mt-1">{errors.country}</p>}
                 </div>
 
+                {/* Referral */}
+                <div>
+                  <label className="text-[11px] text-white/40 uppercase tracking-wide block mb-1.5 font-medium">
+                    Bizni qayerdan bildingiz? (ixtiyoriy)
+                  </label>
+                  <input
+                    type="text"
+                    name="referral"
+                    value={form.referral}
+                    onChange={handleChange}
+                    placeholder="Do'stim, Google, Telegram, Instagram..."
+                    className="w-full bg-surface-2 border border-border rounded-xl px-4 py-3.5 text-sm text-white placeholder-white/25
+                      outline-none transition-all duration-300 focus:border-gold/60 focus:bg-surface focus:shadow-[0_0_15px_rgba(212,175,55,0.08)]"
+                  />
+                </div>
+
                 {/* Message */}
                 <div>
                   <label className="text-[11px] text-white/40 uppercase tracking-wide block mb-1.5 font-medium">
@@ -278,7 +295,7 @@ export default function BookingForm({ formRef, selectedCountry }) {
                     name="message"
                     value={form.message}
                     onChange={handleChange}
-                    rows={4}
+                    rows={3}
                     placeholder="Savollaringizni qoldiring..."
                     className="w-full bg-surface-2 border border-border rounded-xl px-4 py-3 text-sm text-white
                       placeholder-white/25 outline-none transition-all duration-300 focus:border-gold/60 focus:bg-surface focus:shadow-[0_0_15px_rgba(212,175,55,0.08)] resize-none"

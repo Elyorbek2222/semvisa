@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { HERO_STATS } from '../constants'
+import { countries } from '../data/countries'
 
 const TOP_DESTINATIONS = [
   { flag: '🇺🇸', country: 'AQSH', name: 'Biznes vizasi (B1/B2)', badge: '98%', selectValue: 'AQSH (B1/B2)' },
@@ -10,6 +11,10 @@ const TOP_DESTINATIONS = [
 ]
 
 function NavBar({ onCTAClick, menuOpen, setMenuOpen, onLangSwitch }) {
+  const [vizaOpen, setVizaOpen] = useState(false)
+  const lang = localStorage.getItem('semvisa_lang') || 'uz'
+  const isRu = lang === 'ru'
+
   return (
     <nav className="sticky top-0 z-50 bg-bg/95 backdrop-blur-md border-b border-border">
       <div className="max-w-6xl mx-auto px-4 md:px-8 h-14 flex items-center justify-between">
@@ -25,40 +30,56 @@ function NavBar({ onCTAClick, menuOpen, setMenuOpen, onLangSwitch }) {
           </span>
         </a>
 
-        <div className="hidden md:flex items-center gap-6">
-          {[['#services','Xizmatlar'],['#team','Mutaxassislar'],['#testimonials','Sharhlar']].map(([href, label]) => (
+        <div className="hidden md:flex items-center gap-5">
+          {[['#services', isRu ? 'Услуги' : 'Xizmatlar'],['#team', isRu ? 'Команда' : 'Mutaxassislar'],['#testimonials', isRu ? 'Отзывы' : 'Sharhlar']].map(([href, label]) => (
             <a key={href} href={href} className="text-sm text-white/50 hover:text-white transition-colors">
               {label}
             </a>
           ))}
-          <Link to="/blog" className="text-sm text-white/50 hover:text-white transition-colors">
-            Blog
-          </Link>
-          {/* Language switcher */}
-          <button
-            onClick={onLangSwitch}
-            className="flex items-center gap-1.5 border border-gold/30 rounded-lg px-3 py-1.5 text-xs font-bold text-gold hover:bg-gold/10 transition-all"
-          >
-            🇷🇺 RU
+
+          {/* Vizalar dropdown */}
+          <div className="relative" onMouseEnter={() => setVizaOpen(true)} onMouseLeave={() => setVizaOpen(false)}>
+            <Link to="/vizalar" className="flex items-center gap-1 text-sm text-white/50 hover:text-white transition-colors">
+              {isRu ? 'Визы' : 'Vizalar'}
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" className={`transition-transform ${vizaOpen ? 'rotate-180' : ''}`}>
+                <path d="M2 4l4 4 4-4"/>
+              </svg>
+            </Link>
+            {vizaOpen && (
+              <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-52 z-50">
+                <div className="bg-surface border border-border rounded-xl shadow-xl overflow-hidden">
+                  {countries.map(c => (
+                    <Link key={c.slug} to={`/vizalar/${c.slug}`}
+                      className="flex items-center gap-2.5 px-4 py-2.5 hover:bg-gold/8 hover:text-gold text-white/60 text-xs transition-colors">
+                      <span>{c.flag}</span>
+                      <span>{isRu ? c.nameRu : c.nameUz}</span>
+                    </Link>
+                  ))}
+                  <div className="border-t border-border">
+                    <Link to="/vizalar" className="flex items-center gap-2 px-4 py-2.5 text-gold/70 hover:text-gold text-xs transition-colors font-semibold">
+                      {isRu ? 'Все страны →' : 'Barcha mamlakatlar →'}
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <Link to="/blog" className="text-sm text-white/50 hover:text-white transition-colors">Blog</Link>
+          <button onClick={onLangSwitch} className="flex items-center gap-1.5 border border-gold/30 rounded-lg px-3 py-1.5 text-xs font-bold text-gold hover:bg-gold/10 transition-all">
+            {isRu ? '🇺🇿 UZ' : '🇷🇺 RU'}
           </button>
           <button onClick={onCTAClick} className="btn-gold">
-            Bepul tahlil →
+            {isRu ? 'Консультация →' : 'Bepul tahlil →'}
           </button>
         </div>
 
         <div className="flex items-center gap-2 md:hidden">
-          <button
-            onClick={onLangSwitch}
-            className="flex items-center gap-1 border border-gold/30 rounded-lg px-2.5 py-1 text-[11px] font-bold text-gold hover:bg-gold/10 transition-all"
-          >
-            🇷🇺 RU
+          <button onClick={onLangSwitch} className="flex items-center gap-1 border border-gold/30 rounded-lg px-2.5 py-1 text-[11px] font-bold text-gold hover:bg-gold/10 transition-all">
+            {isRu ? '🇺🇿 UZ' : '🇷🇺 RU'}
           </button>
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label={menuOpen ? "Menyuni yopish" : "Menyuni ochish"}
-            aria-expanded={menuOpen}
-            className="w-11 h-11 flex flex-col justify-center gap-1.5 items-center"
-          >
+          <button onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu" aria-expanded={menuOpen}
+            className="w-11 h-11 flex flex-col justify-center gap-1.5 items-center">
             <span className={`block w-5 h-px bg-white/60 transition-all duration-200 ${menuOpen ? 'rotate-45 translate-y-[7px]' : ''}`}/>
             <span className={`block w-5 h-px bg-white/60 transition-all duration-200 ${menuOpen ? 'opacity-0' : ''}`}/>
             <span className={`block w-5 h-px bg-white/60 transition-all duration-200 ${menuOpen ? '-rotate-45 -translate-y-[7px]' : ''}`}/>
@@ -68,12 +89,14 @@ function NavBar({ onCTAClick, menuOpen, setMenuOpen, onLangSwitch }) {
 
       {menuOpen && (
         <div className="md:hidden bg-surface border-t border-border px-4 py-4 flex flex-col gap-1">
-          {[['#services','Xizmatlar'],['#team','Mutaxassislar'],['#testimonials','Sharhlar']].map(([href, label]) => (
+          {[['#services', isRu ? 'Услуги' : 'Xizmatlar'],['#team', isRu ? 'Команда' : 'Mutaxassislar'],['#testimonials', isRu ? 'Отзывы' : 'Sharhlar']].map(([href, label]) => (
             <a key={href} href={href} onClick={() => setMenuOpen(false)}
-               className="text-sm text-white/60 py-3 border-b border-border hover:text-gold transition-colors">
-              {label}
-            </a>
+               className="text-sm text-white/60 py-3 border-b border-border hover:text-gold transition-colors">{label}</a>
           ))}
+          <Link to="/vizalar" onClick={() => setMenuOpen(false)}
+            className="text-sm text-white/60 py-3 border-b border-border hover:text-gold transition-colors">
+            {isRu ? '🌍 Визы по странам' : '🌍 Mamlakatlar bo\'yicha vizalar'}
+          </Link>
           <Link to="/blog" onClick={() => setMenuOpen(false)}
             className="text-sm text-white/60 py-3 border-b border-border hover:text-gold transition-colors">
             Blog
