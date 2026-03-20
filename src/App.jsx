@@ -103,7 +103,7 @@ export default function App({ onLangSwitch }) {
           </div>
 
           <p className="text-[11px] text-white/20">
-            © 2025 Semtravel Premium. Barcha huquqlar himoyalangan.
+            © 2026 SEM VISA Consulting. Barcha huquqlar himoyalangan.
           </p>
         </div>
       </footer>

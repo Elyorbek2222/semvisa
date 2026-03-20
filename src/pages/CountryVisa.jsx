@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async'
 import { countries } from '../data/countries'
 
 function getLang() {
+  if (typeof window === 'undefined') return 'uz'
   return localStorage.getItem('semvisa_lang') || 'uz'
 }
 
@@ -33,11 +34,27 @@ export default function CountryVisa() {
 
   const schema = {
     '@context': 'https://schema.org',
-    '@type': 'TouristDestination',
+    '@type': 'Service',
     name,
+    serviceType: 'Visa Consulting',
     description: meta.desc,
     url: `https://semvisa.vercel.app/vizalar/${slug}`,
-    touristType: { '@type': 'Audience', audienceType: 'tourists' },
+    provider: {
+      '@type': 'LocalBusiness',
+      '@id': 'https://semvisa.vercel.app/#business',
+      name: 'SEM VISA Consulting',
+    },
+    areaServed: { '@type': 'Country', name: 'Uzbekistan' },
+  }
+
+  const breadcrumb = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Bosh sahifa', item: 'https://semvisa.vercel.app' },
+      { '@type': 'ListItem', position: 2, name: isRu ? 'Визы' : 'Vizalar', item: 'https://semvisa.vercel.app/vizalar' },
+      { '@type': 'ListItem', position: 3, name, item: `https://semvisa.vercel.app/vizalar/${slug}` },
+    ],
   }
 
   return (
@@ -52,6 +69,7 @@ export default function CountryVisa() {
         <meta property="og:image" content={country.image} />
         <meta property="og:type" content="article" />
         <script type="application/ld+json">{JSON.stringify(schema)}</script>
+        <script type="application/ld+json">{JSON.stringify(breadcrumb)}</script>
       </Helmet>
 
       {/* Nav */}
@@ -85,7 +103,8 @@ export default function CountryVisa() {
       {/* Hero */}
       <div className="relative overflow-hidden border-b border-border">
         <img src={country.image} alt={name}
-          className="absolute inset-0 w-full h-full object-cover opacity-15" loading="eager" />
+          className="absolute inset-0 w-full h-full object-cover opacity-15" loading="eager"
+          width="1200" height="630" />
         <div className="relative max-w-6xl mx-auto px-4 md:px-8 py-12 md:py-16">
           <div className="flex flex-wrap items-center gap-3 mb-4">
             <span className="text-4xl">{country.flag}</span>

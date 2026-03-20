@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async'
 import { countries } from '../data/countries'
 
 function getLang() {
+  if (typeof window === 'undefined') return 'uz'
   return localStorage.getItem('semvisa_lang') || 'uz'
 }
 

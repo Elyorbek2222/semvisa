@@ -5,6 +5,7 @@ import { blogPosts } from '../data/blogPosts'
 import { blogPostsRu } from '../data/blogPostsRu'
 
 function getLang() {
+  if (typeof window === 'undefined') return 'uz'
   return localStorage.getItem('semvisa_lang') || 'uz'
 }
 
@@ -221,18 +222,35 @@ export default function BlogPost() {
         {post.heroImage && <meta property="og:image" content={post.heroImage} />}
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "Article",
+          "@type": "BlogPosting",
           "headline": title,
           "description": metaDesc,
           "datePublished": post.date,
+          "dateModified": post.date,
           "inLanguage": isRu ? "ru" : "uz",
-          "author": { "@type": "Organization", "name": "SEM VISA Consulting" },
+          "image": post.heroImage || "https://semvisa.vercel.app/og-image.png",
+          "author": { "@type": "Organization", "name": "SEM VISA Consulting", "url": "https://semvisa.vercel.app" },
           "publisher": {
             "@type": "Organization",
             "name": "SEM VISA Consulting",
-            "url": "https://semvisa.vercel.app"
+            "url": "https://semvisa.vercel.app",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://semvisa.vercel.app/icons/icon.svg",
+              "width": 512,
+              "height": 512
+            }
           },
           "mainEntityOfPage": `https://semvisa.vercel.app/blog/${post.slug}`
+        })}</script>
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Bosh sahifa", "item": "https://semvisa.vercel.app" },
+            { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://semvisa.vercel.app/blog" },
+            { "@type": "ListItem", "position": 3, "name": title, "item": `https://semvisa.vercel.app/blog/${post.slug}` }
+          ]
         })}</script>
       </Helmet>
       <ReadingProgress />
@@ -288,7 +306,8 @@ export default function BlogPost() {
           {post.heroImage && (
             <div className="mt-6 rounded-2xl overflow-hidden border border-border">
               <img src={post.heroImage} alt={title}
-                className="w-full object-cover max-h-64 md:max-h-80" loading="lazy" />
+                className="w-full object-cover max-h-64 md:max-h-80" loading="lazy"
+                width="800" height="400" />
             </div>
           )}
 

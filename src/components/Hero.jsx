@@ -12,7 +12,7 @@ const TOP_DESTINATIONS = [
 
 function NavBar({ onCTAClick, menuOpen, setMenuOpen, onLangSwitch }) {
   const [vizaOpen, setVizaOpen] = useState(false)
-  const lang = localStorage.getItem('semvisa_lang') || 'uz'
+  const lang = typeof window !== 'undefined' ? localStorage.getItem('semvisa_lang') || 'uz' : 'uz'
   const isRu = lang === 'ru'
 
   return (

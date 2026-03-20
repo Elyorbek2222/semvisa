@@ -109,7 +109,7 @@ export default function AppRu({ onLangSwitch }) {
           </div>
 
           <p className="text-[11px] text-white/20">
-            © 2025 Semtravel Premium. Все права защищены.
+            © 2026 SEM VISA Consulting. Все права защищены.
           </p>
         </div>
       </footer>

@@ -4,6 +4,7 @@ import { blogPosts } from '../data/blogPosts'
 import { blogPostsRu } from '../data/blogPostsRu'
 
 function getLang() {
+  if (typeof window === 'undefined') return 'uz'
   return localStorage.getItem('semvisa_lang') || 'uz'
 }
 
@@ -111,6 +112,26 @@ export default function Blog() {
         <meta property="og:description" content={metaDesc} />
         <meta property="og:url" content="https://semvisa.vercel.app/blog" />
         <meta property="og:type" content="website" />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          "name": metaTitle,
+          "description": metaDesc,
+          "url": "https://semvisa.vercel.app/blog",
+          "inLanguage": isRu ? "ru" : "uz",
+          "publisher": {
+            "@type": "Organization",
+            "@id": "https://semvisa.vercel.app/#business",
+            "name": "SEM VISA Consulting"
+          },
+          "breadcrumb": {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": isRu ? "Главная" : "Bosh sahifa", "item": "https://semvisa.vercel.app" },
+              { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://semvisa.vercel.app/blog" }
+            ]
+          }
+        })}</script>
       </Helmet>
       <NavBar isRu={isRu} />
 
